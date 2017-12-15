@@ -29,9 +29,9 @@ class ConferServiceProvider extends ServiceProvider
             $keys = $app['config']->get('services.pusher');
             return new Pusher($keys['public'], $keys['secret'], $keys['app_id']);
         });
-        AliasLoader::getInstance()->alias('Push', 'DJB\Confer\Facades\Push');
-        View::composer('confer::confer', 'DJB\Confer\Http\ViewComposers\ConferComposer');
-        View::composer('confer::barconversationlist', 'DJB\Confer\Http\ViewComposers\ConferBarComposer');
+        AliasLoader::getInstance()->alias('Push', 'Tpojka\Confer\Facades\Push');
+        View::composer('confer::confer', 'Tpojka\Confer\Http\ViewComposers\ConferComposer');
+        View::composer('confer::barconversationlist', 'Tpojka\Confer\Http\ViewComposers\ConferBarComposer');
     }
 
     /**
