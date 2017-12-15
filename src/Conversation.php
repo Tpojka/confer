@@ -1,6 +1,6 @@
 <?php
 
-namespace DJB\Confer;
+namespace Tpojka\Confer;
 
 use Illuminate\Database\Eloquent\Model;
 

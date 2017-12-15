@@ -1,15 +1,15 @@
 <?php
 
-namespace DJB\Confer\Http\Controllers;
+namespace Tpojka\Confer\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\User;
 use Auth;
-use DJB\Confer\Commands\MessageWasSent;
-use DJB\Confer\Confer;
-use DJB\Confer\Conversation;
-use DJB\Confer\Message;
+use Tpojka\Confer\Commands\MessageWasSent;
+use Tpojka\Confer\Confer;
+use Tpojka\Confer\Conversation;
+use Tpojka\Confer\Message;
 use Illuminate\Http\Request;
 use Push;
 use Pusher;

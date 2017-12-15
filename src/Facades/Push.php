@@ -1,6 +1,6 @@
 <?php
 
-namespace DJB\Confer\Facades;
+namespace Tpojka\Confer\Facades;
  
 use Illuminate\Support\Facades\Facade;
  

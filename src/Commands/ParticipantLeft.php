@@ -1,14 +1,14 @@
 <?php
 
-namespace DJB\Confer\Commands;
+namespace Tpojka\Confer\Commands;
 
 use App\Commands\Command;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesCommands;
-use DJB\Confer\Commands\MessageWasSent;
-use DJB\Confer\Conversation;
-use DJB\Confer\Message;
-use DJB\Confer\Confer;
+use Tpojka\Confer\Commands\MessageWasSent;
+use Tpojka\Confer\Conversation;
+use Tpojka\Confer\Message;
+use Tpojka\Confer\Confer;
 use App\User;
 
 class ParticipantLeft extends Command implements SelfHandling {

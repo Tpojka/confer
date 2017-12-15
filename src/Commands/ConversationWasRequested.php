@@ -1,13 +1,13 @@
 <?php
 
-namespace DJB\Confer\Commands;
+namespace Tpojka\Confer\Commands;
 
 use App\Commands\Command;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldBeQueued;
-use DJB\Confer\Conversation;
-use DJB\Confer\Confer;
+use Tpojka\Confer\Conversation;
+use Tpojka\Confer\Confer;
 use App\User;
 use Push;
 

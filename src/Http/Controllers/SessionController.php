@@ -1,6 +1,6 @@
 <?php
 
-namespace DJB\Confer\Http\Controllers;
+namespace Tpojka\Confer\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;

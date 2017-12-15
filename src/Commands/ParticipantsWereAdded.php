@@ -1,14 +1,14 @@
 <?php
 
-namespace DJB\Confer\Commands;
+namespace Tpojka\Confer\Commands;
 
 use App\Commands\Command;
 use App\User;
-use DJB\Confer\Commands\ConversationWasRequested;
-use DJB\Confer\Commands\MessageWasSent;
-use DJB\Confer\Confer;
-use DJB\Confer\Conversation;
-use DJB\Confer\Message;
+use Tpojka\Confer\Commands\ConversationWasRequested;
+use Tpojka\Confer\Commands\MessageWasSent;
+use Tpojka\Confer\Confer;
+use Tpojka\Confer\Conversation;
+use Tpojka\Confer\Message;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 

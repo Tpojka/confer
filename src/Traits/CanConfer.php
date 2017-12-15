@@ -1,6 +1,6 @@
 <?php
 
-namespace DJB\Confer\Traits;
+namespace Tpojka\Confer\Traits;
 
 use Auth;
 
