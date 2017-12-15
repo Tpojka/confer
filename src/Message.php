@@ -17,7 +17,7 @@ class Message extends Model {
 	 */
 	public function conversation()
 	{
-		return $this->belongsTo('DJB\Confer\Conversation', 'conversation_id');
+		return $this->belongsTo('Tpojka\Confer\Conversation', 'conversation_id');
 	}
 
 	/**
