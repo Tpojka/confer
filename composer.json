@@ -1,15 +1,15 @@
 {
-	"name" : "djb/confer",
+	"name" : "tpojka/confer",
 	"description" : "Easy chat system for laravel-based sites",
 	"license" : "MIT",
 	"authors" : [{
-			"name" : "Dan James Britchford",
-			"email" : "danbritchford@gmail.com"
+			"name" : "Goran Grbic",
+			"email" : "tpojka@gmail.com"
 		}
 	],
 	"require" : {
-		"php" : ">=5.4.0",
-		"illuminate/support" : ">=5.0",
+		"php" : ">=7.0.0",
+		"illuminate/support" : ">=5.5",
 		"illuminate/html" : ">=5.0",
 		"pusher/pusher-php-server" : "dev-master"
 	},
