@@ -2,19 +2,17 @@
 
 namespace Tpojka\Confer\Commands;
 
-use App\Commands\Command;
 use App\User;
-use Tpojka\Confer\Commands\ConversationWasRequested;
-use Tpojka\Confer\Commands\MessageWasSent;
 use Tpojka\Confer\Confer;
-use Tpojka\Confer\Conversation;
 use Tpojka\Confer\Message;
-use Illuminate\Contracts\Bus\SelfHandling;
-use Illuminate\Foundation\Bus\DispatchesCommands;
+use Tpojka\Confer\Conversation;
+use Tpojka\Confer\Commands\MessageWasSent;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Tpojka\Confer\Commands\ConversationWasRequested;
 
-class ParticipantsWereAdded extends Command implements SelfHandling {
+class ParticipantsWereAdded {
 
-	use DispatchesCommands;
+	use DispatchesJobs;
 
 	protected $conversation;
 	protected $conversation_was_created;

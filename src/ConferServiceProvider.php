@@ -26,8 +26,8 @@ class ConferServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('push', function($app) {
-            $keys = $app['config']->get('services.pusher');
-            return new Pusher($keys['public'], $keys['secret'], $keys['app_id'], $keys['options']);
+            $pusherCreds = $app['config']->get('broadcasting.connections.pusher');
+            return new Pusher($pusherCreds['key'], $pusherCreds['secret'], $pusherCreds['app_id'], ['cluster' => $pusherCreds['options']['cluster']]);
         });
         AliasLoader::getInstance()->alias('Push', 'Tpojka\Confer\Facades\Push');
         View::composer('confer::confer', 'Tpojka\Confer\Http\ViewComposers\ConferComposer');

@@ -2,16 +2,14 @@
 
 namespace Tpojka\Confer\Commands;
 
-use App\Commands\Command;
-use Illuminate\Contracts\Bus\SelfHandling;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldBeQueued;
-use Tpojka\Confer\Conversation;
-use Tpojka\Confer\Confer;
 use App\User;
-use Push;
+use Tpojka\Confer\Confer;
+use Tpojka\Confer\Facades\Push;
+use Tpojka\Confer\Conversation;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ConversationWasRequested extends Command implements SelfHandling, ShouldBeQueued {
+class ConversationWasRequested implements ShouldQueue {
 	
 	use InteractsWithQueue;
 

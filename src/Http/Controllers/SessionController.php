@@ -4,7 +4,7 @@ namespace Tpojka\Confer\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;// @todo what to use here?
 use Session;
 use Response;
 

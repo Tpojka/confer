@@ -22,8 +22,13 @@ class MessageController extends Controller {
 	public function __construct(Confer $confer)
 	{
 		$this->middleware('auth');
-		$this->user = Auth::user();
-		$this->confer = $confer;
+                $this->middleware(function ($request, $next) use($confer) {
+
+                    $this->user = Auth::user();
+                    $this->confer = $confer;
+
+                    return $next($request);
+                });
 	}
 
 	/**

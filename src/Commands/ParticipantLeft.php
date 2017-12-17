@@ -2,18 +2,17 @@
 
 namespace Tpojka\Confer\Commands;
 
-use App\Commands\Command;
-use Illuminate\Contracts\Bus\SelfHandling;
-use Illuminate\Foundation\Bus\DispatchesCommands;
-use Tpojka\Confer\Commands\MessageWasSent;
-use Tpojka\Confer\Conversation;
-use Tpojka\Confer\Message;
-use Tpojka\Confer\Confer;
 use App\User;
+use Tpojka\Confer\Confer;
+use App\Commands\Command;
+use Tpojka\Confer\Message;
+use Tpojka\Confer\Conversation;
+use Tpojka\Confer\Commands\MessageWasSent;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
-class ParticipantLeft extends Command implements SelfHandling {
+class ParticipantLeft {
 
-	use DispatchesCommands;
+	use DispatchesJobs;
 
 	protected $conversation;
 	protected $leaver;

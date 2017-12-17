@@ -91,12 +91,12 @@ trait CanConfer {
 	 */
 	public function participatingConversations()
 	{
-		return $this->conversations()->ignoreGlobal()->lists('id');
+		return $this->conversations()->ignoreGlobal()->pluck('id');
 	}
 
 	public function privateConversations()
 	{
-		return $this->conversations()->isPrivate()->lists('id');
+		return $this->conversations()->isPrivate()->pluck('id');
 	}
 
 	public function leaveConversation(\Tpojka\Confer\Conversation $conversation)

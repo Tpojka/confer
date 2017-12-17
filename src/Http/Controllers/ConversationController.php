@@ -3,16 +3,15 @@
 namespace Tpojka\Confer\Http\Controllers;
 
 use App\User;
+use Auth;
 use Tpojka\Confer\Confer;
-use Pusher\Pusher as Push;
-use Illuminate\Http\Request;
 use Tpojka\Confer\Conversation;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use Tpojka\Confer\Commands\ParticipantLeft;
-use Tpojka\Confer\Commands\ParticipantsWereAdded;
 use Tpojka\Confer\Commands\ConversationWasRequested;
+use Tpojka\Confer\Commands\ParticipantsWereAdded;
+use Tpojka\Confer\Commands\ParticipantLeft;
+use Illuminate\Http\Request;
 use Tpojka\Confer\Http\Requests\InviteParticipantsRequest;
+use Push;
 
 class ConversationController extends Controller {
 	
@@ -22,8 +21,13 @@ class ConversationController extends Controller {
 	public function __construct(Confer $confer)
 	{
 		$this->middleware('auth');
-		$this->user = Auth::user();
-		$this->confer = $confer;
+		$this->middleware(function ($request, $next) use($confer) {
+
+           	    $this->user = Auth::user();
+                    $this->confer = $confer;
+
+            	    return $next($request);
+        	});
 	}
 
 	public function test()

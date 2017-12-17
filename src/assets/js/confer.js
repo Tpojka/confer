@@ -20,6 +20,7 @@
 
 		pusher_key : false,
 		base_url : '',
+		cluster : null,
 		token : false,
 		messages_trigger : $('a#messages_open_icon'),
 		messages_container : $('a#messages_open_icon').siblings('ul.dropdown-menu').children('li').first(),
@@ -110,7 +111,7 @@
 			return false;
 		}
 
-		this.pusher = new Pusher(self.options.pusher_key, { authEndpoint: self.options.base_url + '/confer/auth', authTransport: 'ajax', auth: { params: { _token : self.options.token } } });
+		this.pusher = new Pusher(self.options.pusher_key, { cluster: self.options.cluster, authEndpoint: self.options.base_url + '/confer/auth', authTransport: 'ajax', auth: { params: { _token : self.options.token } } });
 
 		this._initPusherEvents();
 

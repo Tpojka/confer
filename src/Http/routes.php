@@ -3,6 +3,8 @@
 Route::model('conferconversation', 'Tpojka\Confer\Conversation');
 Route::model('conferuser', 'App\User');
 
+Route::middleware(['web'])->group(function () {
+
 Route::any('confer/auth', ['as' => 'confer.pusher.auth', 'uses' => 'Tpojka\Confer\Http\Controllers\ConversationController@authenticate']);
 Route::get('confer/test', 'Tpojka\Confer\Http\Controllers\ConversationController@test');
 Route::get('confer/settings', 'Tpojka\Confer\Http\Controllers\ConversationController@settings');
@@ -26,3 +28,5 @@ Route::patch('confer/conversation/{conferconversation}', ['as' => 'confer.conver
 Route::post('confer/session', ['as' => 'confer.session.store', 'uses' => 'Tpojka\Confer\Http\Controllers\SessionController@store']);
 Route::patch('confer/requests/session', ['as' => 'confer.session.update', 'uses' => 'Tpojka\Confer\Http\Controllers\SessionController@update']);
 Route::get('confer/session/clear', ['as' => 'confer.session.destroy', 'uses' => 'Tpojka\Confer\Http\Controllers\SessionController@destroy']);
+
+});

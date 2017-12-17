@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
 	"name" : "tpojka/confer",
 	"description" : "Easy chat system for laravel-based sites",
 	"license" : "MIT",
@@ -24,4 +25,33 @@
 			"src/Helpers/helpers.php"
 		]
 	}
+=======
+    "name": "tpojka/confer",
+    "description": "Easy chat system for laravel-based sites",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Goran Grbic",
+            "email": "tpojka@gmail.com"
+        }
+    ],
+    "minimum-stablity": "stable",
+    "require": {
+        "php": ">=7.1.2",
+	"illuminate/support": ">=5.5",
+        "laravelcollective/html": "^5.5.0",
+        "pusher/pusher-php-server": "^3.0"
+    },
+    "suggest": {
+        "emojione/emojione": "Will allow emoji support within confer"
+    },
+    "autoload": {
+        "psr-4": {
+          "Tpojka\\Confer\\": "src/"
+        },
+        "files": [
+            "src/Helpers/helpers.php"
+        ]
+    }
+>>>>>>> 77a31630a62fdf2d8f0b78498a801aa770b00ab6
 }
