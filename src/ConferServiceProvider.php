@@ -5,8 +5,8 @@ namespace Tpojka\Confer;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
 
-use \Pusher;
-use View;
+use Pusher\Pusher;
+use Illuminate\Support\Facades\View;
 
 class ConferServiceProvider extends ServiceProvider
 {
@@ -27,7 +27,7 @@ class ConferServiceProvider extends ServiceProvider
     {
         $this->app->singleton('push', function($app) {
             $keys = $app['config']->get('services.pusher');
-            return new Pusher($keys['public'], $keys['secret'], $keys['app_id']);
+            return new Pusher($keys['public'], $keys['secret'], $keys['app_id'], $keys['options']);
         });
         AliasLoader::getInstance()->alias('Push', 'Tpojka\Confer\Facades\Push');
         View::composer('confer::confer', 'Tpojka\Confer\Http\ViewComposers\ConferComposer');

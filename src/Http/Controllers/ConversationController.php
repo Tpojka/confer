@@ -2,18 +2,17 @@
 
 namespace Tpojka\Confer\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\User;
-use Auth;
 use Tpojka\Confer\Confer;
-use Tpojka\Confer\Conversation;
-use Tpojka\Confer\Commands\ConversationWasRequested;
-use Tpojka\Confer\Commands\ParticipantsWereAdded;
-use Tpojka\Confer\Commands\ParticipantLeft;
+use Pusher\Pusher as Push;
 use Illuminate\Http\Request;
+use Tpojka\Confer\Conversation;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use Tpojka\Confer\Commands\ParticipantLeft;
+use Tpojka\Confer\Commands\ParticipantsWereAdded;
+use Tpojka\Confer\Commands\ConversationWasRequested;
 use Tpojka\Confer\Http\Requests\InviteParticipantsRequest;
-use Push;
 
 class ConversationController extends Controller {
 	
