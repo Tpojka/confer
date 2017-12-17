@@ -2,7 +2,7 @@
 
 namespace Tpojka\Confer\Http\Requests;
 
-use App\Http\Requests\Request;
+use Illuminate\Http\Request;
 
 class InviteParticipantsRequest extends Request {
 

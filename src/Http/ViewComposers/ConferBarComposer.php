@@ -2,8 +2,8 @@
 
 namespace Tpojka\Confer\Http\ViewComposers;
 
-use Illuminate\Contracts\View\View;
 use Auth;
+use Illuminate\Contracts\View\View;
 
 class ConferBarComposer {
 

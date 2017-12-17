@@ -1,6 +1,7 @@
 <?php
 
 namespace Tpojka\Confer;
+
 use Push;
 use App\User;
 
