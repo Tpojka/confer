@@ -1,10 +1,9 @@
 <?php
 
+use App\User;
+use Tpojka\Confer\Conversation;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-
-use Tpojka\Confer\Conversation;
-use App\User;
 
 class ConferSeeder extends Seeder {
 

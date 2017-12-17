@@ -2,11 +2,10 @@
 
 namespace Tpojka\Confer;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Foundation\AliasLoader;
-
 use Push;
 use Illuminate\Support\Facades\View;
+use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\ServiceProvider;
 
 class ConferServiceProvider extends ServiceProvider
 {
@@ -27,7 +26,7 @@ class ConferServiceProvider extends ServiceProvider
     {
         $this->app->singleton('push', function($app) {
             $pusherCreds = $app['config']->get('broadcasting.connections.pusher');
-            return new Push($pusherCreds['key'], $pusherCreds['secret'], $pusherCreds['app_id'], ['cluster' => $pusherCreds['options']['cluster']]);
+            return new Push($pusherCreds['key'], $pusherCreds['secret'], $pusherCreds['app_id'], $pusherCreds['options']);
         });
         AliasLoader::getInstance()->alias('Push', 'Tpojka\Confer\Facades\Push');
         View::composer('confer::confer', 'Tpojka\Confer\Http\ViewComposers\ConferComposer');
