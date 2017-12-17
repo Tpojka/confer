@@ -1,20 +1,18 @@
 <?php
 
-namespace DJB\Confer\Commands;
+namespace Tpojka\Confer\Commands;
 
-use App\Commands\Command;
 use App\User;
-use DJB\Confer\Commands\ConversationWasRequested;
-use DJB\Confer\Commands\MessageWasSent;
-use DJB\Confer\Confer;
-use DJB\Confer\Conversation;
-use DJB\Confer\Message;
-use Illuminate\Contracts\Bus\SelfHandling;
-use Illuminate\Foundation\Bus\DispatchesCommands;
+use Tpojka\Confer\Confer;
+use Tpojka\Confer\Message;
+use Tpojka\Confer\Conversation;
+use Tpojka\Confer\Commands\MessageWasSent;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Tpojka\Confer\Commands\ConversationWasRequested;
 
-class ParticipantsWereAdded extends Command implements SelfHandling {
+class ParticipantsWereAdded {
 
-	use DispatchesCommands;
+	use DispatchesJobs;
 
 	protected $conversation;
 	protected $conversation_was_created;

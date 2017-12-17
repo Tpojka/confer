@@ -1,25 +1,26 @@
 {
-    "name": "djb/confer",
+    "name": "tpojka/confer",
     "description": "Easy chat system for laravel-based sites",
     "license": "MIT",
     "authors": [
         {
-            "name": "Dan James Britchford",
-            "email": "danbritchford@gmail.com"
+            "name": "Goran Grbic",
+            "email": "tpojka@gmail.com"
         }
     ],
+    "minimum-stablity": "stable",
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": ">=5.0",
-        "illuminate/html": ">=5.0",
-        "pusher/pusher-php-server": "dev-master"
+	"illuminate/support": ">=5.4",
+        "laravelcollective/html": "^5.4.0",
+        "pusher/pusher-php-server": "^3.0"
     },
     "suggest": {
         "emojione/emojione": "Will allow emoji support within confer"
     },
     "autoload": {
         "psr-4": {
-          "DJB\\Confer\\": "src/"
+          "Tpojka\\Confer\\": "src/"
         },
         "files": [
             "src/Helpers/helpers.php"

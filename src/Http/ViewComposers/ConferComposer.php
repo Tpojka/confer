@@ -1,6 +1,6 @@
 <?php
 
-namespace DJB\Confer\Http\ViewComposers;
+namespace Tpojka\Confer\Http\ViewComposers;
 
 use Illuminate\Contracts\View\View;
 

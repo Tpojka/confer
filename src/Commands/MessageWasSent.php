@@ -1,16 +1,14 @@
 <?php
 
-namespace DJB\Confer\Commands;
+namespace Tpojka\Confer\Commands;
 
-use App\Commands\Command;
-use Illuminate\Contracts\Bus\SelfHandling;
+use Tpojka\Confer\Confer;
+use Tpojka\Confer\Message;
+use Tpojka\Confer\Facades\Push;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldBeQueued;
-use DJB\Confer\Message;
-use DJB\Confer\Confer;
-use Push;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class MessageWasSent extends Command implements SelfHandling, ShouldBeQueued {
+class MessageWasSent implements ShouldQueue {
 	
 	use InteractsWithQueue;
 

@@ -1,4 +1,6 @@
-<?php namespace DJB\Confer\Http\Requests;
+<?php
+
+namespace Tpojka\Confer\Http\Requests;
 
 use App\Http\Requests\Request;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace DJB\Confer;
+namespace Tpojka\Confer;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,7 +29,7 @@ class Conversation extends Model {
 	 */
 	public function messages()
 	{
-		return $this->hasMany('DJB\Confer\Message', 'conversation_id');
+		return $this->hasMany('Tpojka\Confer\Message', 'conversation_id');
 	}
 
 	public function isGlobal()

@@ -1,6 +1,6 @@
 <?php
 
-namespace DJB\Confer\Traits;
+namespace Tpojka\Confer\Traits;
 
 use Auth;
 
@@ -43,7 +43,7 @@ trait CanConfer {
 	/**
 	 * Get the conversations that are required in the messages bar
 	 * 
-	 * @return Collection of DJB\Confer\Conversation
+	 * @return Collection of Tpojka\Confer\Conversation
 	 */
 	public function getBarConversations()
 	{
@@ -68,7 +68,7 @@ trait CanConfer {
 	 */
 	public function conversations()
 	{
-		return $this->belongsToMany('DJB\Confer\Conversation', 'confer_conversation_participants', 'conversation_id', 'user_id');
+		return $this->belongsToMany('Tpojka\Confer\Conversation', 'confer_conversation_participants', 'conversation_id', 'user_id');
 	}
 
 	/**
@@ -91,15 +91,15 @@ trait CanConfer {
 	 */
 	public function participatingConversations()
 	{
-		return $this->conversations()->ignoreGlobal()->lists('id');
+		return $this->conversations()->ignoreGlobal()->pluck('id');
 	}
 
 	public function privateConversations()
 	{
-		return $this->conversations()->isPrivate()->lists('id');
+		return $this->conversations()->isPrivate()->pluck('id');
 	}
 
-	public function leaveConversation(\DJB\Confer\Conversation $conversation)
+	public function leaveConversation(\Tpojka\Confer\Conversation $conversation)
 	{
 		$this->conversations()->detach($conversation->id);
 	}
@@ -111,7 +111,7 @@ trait CanConfer {
 	 */
 	public function sent()
 	{
-		return $this->hasMany('DJB\Confer\Message', 'sender_id');
+		return $this->hasMany('Tpojka\Confer\Message', 'sender_id');
 	}
 
 }

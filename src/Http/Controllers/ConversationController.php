@@ -1,18 +1,18 @@
 <?php
 
-namespace DJB\Confer\Http\Controllers;
+namespace Tpojka\Confer\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\User;
 use Auth;
-use DJB\Confer\Confer;
-use DJB\Confer\Conversation;
-use DJB\Confer\Commands\ConversationWasRequested;
-use DJB\Confer\Commands\ParticipantsWereAdded;
-use DJB\Confer\Commands\ParticipantLeft;
+use Tpojka\Confer\Confer;
+use Tpojka\Confer\Conversation;
+use Tpojka\Confer\Commands\ConversationWasRequested;
+use Tpojka\Confer\Commands\ParticipantsWereAdded;
+use Tpojka\Confer\Commands\ParticipantLeft;
 use Illuminate\Http\Request;
-use DJB\Confer\Http\Requests\InviteParticipantsRequest;
+use Tpojka\Confer\Http\Requests\InviteParticipantsRequest;
 use Push;
 
 class ConversationController extends Controller {
@@ -23,8 +23,13 @@ class ConversationController extends Controller {
 	public function __construct(Confer $confer)
 	{
 		$this->middleware('auth');
-		$this->user = Auth::user();
-		$this->confer = $confer;
+		$this->middleware(function ($request, $next) use($confer) {
+
+           	    $this->user = Auth::user();
+                    $this->confer = $confer;
+
+            	    return $next($request);
+        	});
 	}
 
 	public function test()

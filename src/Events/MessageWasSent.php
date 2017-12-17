@@ -1,6 +1,6 @@
 <?php
 
-namespace DJB\Confer\Events;
+namespace Tpojka\Confer\Events;
 
 class MessageWasSent {
 	
