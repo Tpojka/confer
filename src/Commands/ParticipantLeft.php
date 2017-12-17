@@ -4,7 +4,6 @@ namespace Tpojka\Confer\Commands;
 
 use App\User;
 use Tpojka\Confer\Confer;
-use App\Commands\Command;
 use Tpojka\Confer\Message;
 use Tpojka\Confer\Conversation;
 use Tpojka\Confer\Commands\MessageWasSent;

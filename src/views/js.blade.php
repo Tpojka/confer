@@ -25,6 +25,7 @@ String.prototype.capitalize = function() {
 (function() {
 	var options = {
 		pusher_key : "{{ config('broadcasting.connections.pusher.key') }}",
+		cluster : "{{ config('broadcasting.connections.pusher.options.cluster') }}",
 		base_url : "{{ url('/') }}",
 		avatar_dir : "{{ url('/') . config('confer.avatar_dir') }}",
 		token : "{{ csrf_token() }}",

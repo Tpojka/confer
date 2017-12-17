@@ -2,17 +2,14 @@
 
 namespace Tpojka\Confer\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests;
-use App\User;
 use Auth;
-use Tpojka\Confer\Commands\MessageWasSent;
+use App\User;
 use Tpojka\Confer\Confer;
-use Tpojka\Confer\Conversation;
 use Tpojka\Confer\Message;
 use Illuminate\Http\Request;
-use Push;
-use Pusher;
+use Tpojka\Confer\Conversation;
+use App\Http\Controllers\Controller;
+use Tpojka\Confer\Commands\MessageWasSent;
 
 class MessageController extends Controller {
 	

@@ -2,9 +2,8 @@
 
 namespace Tpojka\Confer\Http\ViewComposers;
 
-use Illuminate\Contracts\View\View;
-
 use Session;
+use Illuminate\Contracts\View\View;
 
 class ConferComposer {
 

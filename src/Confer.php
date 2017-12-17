@@ -2,8 +2,8 @@
 
 namespace Tpojka\Confer;
 
+use Push;
 use App\User;
-use Pusher\Pusher as Push;
 
 class Confer {
 	
