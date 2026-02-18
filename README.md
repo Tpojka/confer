@@ -26,12 +26,12 @@ Other requirements:
 # Installation
 
 Require the package via composer:
-`composer require djb/confer`
+`composer require tpojka/confer`
 
 Publish the assets:
 `php artisan vendor:publish`
 
-Add the service provider `DJB\Confer\ConferServiceProvider` to your `config\app.php`
+Add the service provider `Tpojka\Confer\ConferServiceProvider` to your `config\app.php`
 
 Add the seed to your database seed caller (default is `database\seeds\DatabaseSeeder.php`):
 
@@ -57,7 +57,7 @@ Migrate your database with the seeds in tow:
 Add the trait to your User model:
 
 ```php
-use DJB\Confer\Traits\CanConfer;
+use Tpojka\Confer\Traits\CanConfer;
 
 class User extends Model {
 
