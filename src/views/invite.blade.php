@@ -1,13 +1,14 @@
 <h2>Who do you want to invite?</h2>
 <small>Add from the list of users below to invite to your conversation.</small>
 
-{!! Form::open(['route' => ['confer.conversation.update', $conversation->id], 'class' => 'confer-invite-form']) !!}
+<form method="POST" action="{{ route('confer.conversation.update', $conversation->id) }}" class="confer-invite-form">
+	@csrf
 @if ($conversation->isPrivate() && ! $potential_invitees->isEmpty())
 <small>You'll also want to give your conversation a new name!</small>
 
 <div class="confer-rename-conversation">
-<!--{!! Form::label('conversation_name', 'Name') !!}-->
-{!! Form::text('conversation_name', null, ['placeholder' => 'Call it something snazzy']) !!}
+	<!--<label for="conversation_name">Name</label>-->
+	<input type="text" name="conversation_name" placeholder="Call it something snazzy">
 </div>
 @endif
 
@@ -28,6 +29,6 @@
 
 <button class="confer-button confer-invite-back-button">Back to the conversation</button>
 @if ( ! $potential_invitees->isEmpty())
-{!! Form::submit('Invite and update the conversation', ['class' => 'confer-button confer-button-success confer-invite-save']) !!}
+	<button type="submit" class="confer-button confer-button-success confer-invite-save">Invite and update the conversation</button>
 @endif
-{!! Form::close() !!}
+</form>

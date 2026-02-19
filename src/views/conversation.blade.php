@@ -40,8 +40,9 @@ Conversation between {{ confer_make_list($conversation->participants->pluck('nam
 	@endforeach
 </ul>
 
-{!! Form::open(['route' => ['confer.conversation.message.store', $conversation->id], 'class' => 'confer-new-message-form']) !!}
-{!! Form::label('body', 'New message') !!}
-{!! Form::textarea('body', null, ['class' => 'confer-new-message-input']) !!}
-{!! Form::submit('Send', ['class' => 'confer-button confer-button-neutral confer-new-message-submit']) !!}
-{!! Form::close() !!}
+<form method="POST" action="{{ route('confer.conversation.message.store', $conversation->id) }}" class="confer-new-message-form">
+	@csrf
+	<label for="body">New message</label>
+	<textarea name="body" class="confer-new-message-input"></textarea>
+	<button type="submit" class="confer-button confer-button-neutral confer-new-message-submit">Send</button>
+</form>
