@@ -399,15 +399,18 @@
 			$input.height($input[0].scrollHeight - 10);
 		});
 
-		$('i.confer-user-list-icon').click(function() {
+		$(document).on('click', 'i.confer-user-list-icon', function() {
+			if (self.options.verbose) console.log('Confer: user list icon clicked');
 			self.loadUserList();
 		});
 
-		$('i.confer-settings-icon').click(function() {
+		$(document).on('click', 'i.confer-settings-icon', function() {
+			if (self.options.verbose) console.log('Confer: settings icon clicked');
 			self.loadSettings();
 		});
 
-		$('i.confer-all-conversations-icon').click(function() {
+		$(document).on('click', 'i.confer-all-conversations-icon', function() {
+			if (self.options.verbose) console.log('Confer: all conversations icon clicked');
 			self.loadAllConversationsList();
 		});
 
