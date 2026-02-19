@@ -1,3 +1,12 @@
+### [Unreleased]
+
+#### Added
+- Support for Laravel 7.0 (`illuminate/support: ^7.0`).
+- Minimum PHP requirement bumped to `>=7.2.5` to match Laravel 7.
+
+#### Fixed
+- Typo in `composer.json` metadata: `minimum-stability`.
+
 ### Suggestions for Upgrading `tpojka/confer` to Laravel 6
 
 Based on the audit of the `tpojka/confer` submodule, here are the suggested changes to ensure compatibility with Laravel 6.0.
