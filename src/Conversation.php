@@ -54,7 +54,7 @@ class Conversation extends Model {
 	 */
 	public function getPotentialInvitees()
 	{
-		$current_participants = $this->participants()->lists('id');
+		$current_participants = $this->participants()->pluck('id');
 		return \App\User::whereNotIn('id', $current_participants)->get();
 
 	}
@@ -66,7 +66,7 @@ class Conversation extends Model {
 			'is_private' => false
 		]);
 
-		$current_participants = $this->participants()->lists('id');
+		$current_participants = $this->participants()->pluck('id');
 		$conversation->participants()->sync(array_merge($current_participants, $users));
 
 		return $conversation;
@@ -75,7 +75,7 @@ class Conversation extends Model {
 	public function addAdditionalParticipants(Array $users)
 	{
 		//$this->participants()->attach($users); cannot use this method due to SQL 2005
-		$this->participants()->sync(array_merge($this->participants()->lists('id'), $users));
+		$this->participants()->sync(array_merge($this->participants()->pluck('id'), $users));
 	}
 
 	public static function findOrCreateBetween(\App\User $user, \App\User $other_user)

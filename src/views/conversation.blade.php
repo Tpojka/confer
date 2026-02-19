@@ -3,7 +3,7 @@
 @if ($conversation->isGlobal())
 Conversation between all users.
 @else
-Conversation between {{ confer_make_list($conversation->participants->lists('name')) }}.
+Conversation between {{ confer_make_list($conversation->participants->pluck('name')) }}.
 @endif
 </small>
 @if ( ! $conversation->isGlobal())

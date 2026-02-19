@@ -54,7 +54,7 @@ class ParticipantsWereAdded {
 
 	private function makeJoinMessage()
 	{
-		$users = $this->conversation_was_created ? confer_make_list($this->conversation->participants()->ignoreMe()->lists('name')) : confer_make_list(User::whereIn('id', $this->users)->lists('name'));
+		$users = $this->conversation_was_created ? confer_make_list($this->conversation->participants()->ignoreMe()->pluck('name')) : confer_make_list(User::whereIn('id', $this->users)->pluck('name'));
 		$message = Message::create([
 			'conversation_id' => $this->conversation->id,
 			'body' => '<strong>' . $users . '</strong> joined the conversation on ' . $this->inviter->name . '\'s invitation',
