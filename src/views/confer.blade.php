@@ -31,9 +31,9 @@
     @endif
 	</ul>
 	<div class="confer-icon-list">
-		<i class="fa fa-weixin confer-all-conversations-icon"></i>
-		<!--<i class="fa fa-cog confer-settings-icon"></i>-->
-		<i class="fa fa-users confer-user-list-icon"></i>
+		<i class="fa-solid fa-comments confer-all-conversations-icon"></i>
+		<!--<i class="fa-solid fa-gear confer-settings-icon"></i>-->
+		<i class="fa-solid fa-users confer-user-list-icon"></i>
 	</div>
 </div>
 @endif
