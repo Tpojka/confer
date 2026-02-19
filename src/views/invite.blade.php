@@ -21,7 +21,7 @@
 	<li data-userId="{{ $user->id }}">
 		<img class="confer-user-avatar" src="{{ url('/') . config('confer.avatar_dir') . $user->avatar }}">
 		<span>{{ $user->name }}</span>
-		<i class="fa fa-check"></i>
+		<i class="fa-solid fa-check"></i>
 	</li>
 
 @endforeach

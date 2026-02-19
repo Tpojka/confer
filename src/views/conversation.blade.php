@@ -8,9 +8,9 @@ Conversation between {{ confer_make_list($conversation->participants->pluck('nam
 </small>
 @if ( ! $conversation->isGlobal())
 <div class="confer-conversation-options">
-	<i class="fa fa-user-plus confer-invite-users"></i>
+	<i class="fa-solid fa-user-plus confer-invite-users"></i>
 	@if ($conversation->participants->count() > 2)
-	<i class="fa fa-sign-out confer-leave-conversation"></i>
+	<i class="fa-solid fa-right-from-bracket confer-leave-conversation"></i>
 	@endif
 </div>
 @endif
