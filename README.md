@@ -69,14 +69,17 @@ class User extends Model {
 Link to the css file, and import the view partials in whichever pages you wish to have the chat on, or put it in your app/master file (if you are using one) to show on all pages:
 
 ```html
-<link href="/vendor/confer/css/confer.css" rel="stylesheet">
+<link href="{{ asset('vendor/confer/css/confer.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 @include('confer::confer')
 
 <script src="/js/jquery.min.js"></script>
 <script src="/js/pusher.min.js"></script>
 <script src="/js/moment.min.js"></script>
+
+@if(Auth::check())
 @include('confer::js')
+@endif
 ```
 
 # Configuration
