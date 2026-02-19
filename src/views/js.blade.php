@@ -8,23 +8,23 @@ $(document).ready(function () {
 
     (function ($, undefined) {
         $.fn.getCursorPosition = function() {
-            var el = $(this).get(0);
-            var pos = 0;
-            if('selectionStart' in el) {
-                pos = el.selectionStart;
-            } else if('selection' in document) {
-                el.focus();
-                var Sel = document.selection.createRange();
-                var SelLength = document.selection.createRange().text.length;
-                Sel.moveStart('character', -el.value.length);
-                pos = Sel.text.length - SelLength;
-            }
+        const el = $(this).get(0);
+        let pos = 0;
+        if('selectionStart' in el) {
+            pos = el.selectionStart;
+        } else if('selection' in document) {
+            el.focus();
+            const Sel = document.selection.createRange();
+            const SelLength = document.selection.createRange().text.length;
+            Sel.moveStart('character', -el.value.length);
+            pos = Sel.text.length - SelLength;
+        }
             return pos;
         }
     })(jQuery);
 
     (function() {
-        var options = {
+        const options = {
             pusher_key : "{{ config('broadcasting.connections.pusher.key') }}",
             cluster : "{{ config('broadcasting.connections.pusher.options.cluster') }}",
             base_url : "{{ url('/') }}",
@@ -35,7 +35,7 @@ $(document).ready(function () {
             use_emoji : "{{ config('confer.enable_emoji') }}",
             grammar_enforcer : "{{ config('confer.grammar_enforcer') }}"
         };
-        var confer = new window.Confer($('div.confer-overlay'), $('ul.confer-open-conversations-list'), {{ Auth::user()->id }}, options);
+        const confer = new window.Confer($('div.confer-overlay'), $('ul.confer-open-conversations-list'), {{ Auth::user()->id }}, options);
     })();
 })
 </script>

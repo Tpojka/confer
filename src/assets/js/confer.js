@@ -44,7 +44,7 @@
 	Confer.prototype._init = function()
 	{
 
-		var self = this;
+		const self = this;
 
 		this._initVariables();
 		if ( ! this._initPusher())
@@ -67,7 +67,7 @@
 	Confer.prototype._restorePusherForOpenChats = function()
 	{
 
-		var self = this;
+		const self = this;
 
 		self.open_conversation_list.find('li').not('[data-conversationId=1]').each(function(index, value) {
 			self.beginCheckingForMessages({ id : $(this).attr('data-conversationId') });
@@ -83,7 +83,7 @@
 	Confer.prototype._initVariables = function()
 	{
 
-		var self = this;
+		const self = this;
 
 		self.open_conversation = false;
 		self.last_loaded_conversation = 0;
@@ -99,7 +99,7 @@
 	Confer.prototype._initPusher = function()
 	{
 	
-		var self = this;
+		const self = this;
 
 		if (typeof Pusher === "undefined")
 		{
@@ -127,7 +127,7 @@
 	Confer.prototype._initPusherEvents = function()
 	{
 
-		var self = this;
+		const self = this;
 
 		// Subscribe to the presence channel
 		self.globalchannel = self.pusher.subscribe('presence-global');
@@ -188,7 +188,7 @@
 	Confer.prototype._initConnectionRetries = function (channel)
 	{
 
-		var self = this;
+		const self = this;
 
 		if (typeof self.reattemptSchedule === 'undefined')
 		{
@@ -205,7 +205,7 @@
 	Confer.prototype.disableConfer = function ()
 	{
 
-		var self = this;
+		const self = this;
 
 		if (self.options.verbose) console.log('Confer: disabling Confer as unable to establish connection to Pusher');
 		self.open_conversation_list.closest('div.confer-open-conversations').addClass('confer-disabled');
@@ -215,11 +215,11 @@
 	Confer.prototype.reattemptConnection = function (channel)
 	{
 
-		var self = this;
+		const self = this;
 
 		if (self.pusher.channel(channel)) self.reenableConfer();
 		if (self.options.verbose) console.log('Confer: re-attempting connection to Pusher')
-		var subscription = self.pusher.subscribe(channel);
+		const subscription = self.pusher.subscribe(channel);
 		self.retryConnectionAttempts++;
 		if (self.retryConnectionAttempts === self.options.connection_retries)
 		{
@@ -232,7 +232,7 @@
 	Confer.prototype.reenableConfer = function ()
 	{
 
-		var self = this;
+		const self = this;
 
 		if (self.options.verbose) console.log('Confer: re-enabling Confer as connection to Pusher has been established');
 		clearInterval(self.reattemptSchedule);
@@ -243,7 +243,7 @@
 	Confer.prototype.barIsLoading = function()
 	{
 
-		var self = this;
+		const self = this;
 
 		self.options.messages_container.append(self.bar_loader);
 		self.bar_loader.show();
@@ -253,7 +253,7 @@
 	Confer.prototype.barFinishedLoading = function()
 	{
 
-		var self = this;
+		const self = this;
 
 		self.bar_loader.hide();
 		self.overlay.append(self.bar_loader);
@@ -262,16 +262,16 @@
 
 	Confer.prototype.addMessageToConversation = function (message)
 	{
-		var self = this;
+		const self = this;
 
-		var message = self.constructConversationMessage(message);
-		message.hide();
-		var list = self.overlay_content.find('ul.confer-conversation-message-list');
-		list.append(message);
-		message.slideDown(100);
+		const message_constructed = self.constructConversationMessage(message);
+		message_constructed.hide();
+		const list = self.overlay_content.find('ul.confer-conversation-message-list');
+		list.append(message_constructed);
+		message_constructed.slideDown(100);
 		setTimeout(function() {
 			list.scrollTop(list.prop("scrollHeight"));
-			var body = message.find('.confer-message-body');
+			const body = message_constructed.find('.confer-message-body');
 			if (body.length && self.options.use_emoji) body.html(emojione.shortnameToImage(body.text()));
 		}, 150);
 
@@ -280,11 +280,11 @@
 	Confer.prototype.beginCheckingForMessages = function(conversation)
 	{
 
-		var self = this;
+		const self = this;
 
 		if (self.options.verbose) console.log('Confer: beginning to check for messages for conversation: ' + conversation.id);
 		if (self.pusher.channel('private-conversation-' + conversation.id)) return;
-		var channel = self.pusher.subscribe('private-conversation-' + conversation.id);
+		const channel = self.pusher.subscribe('private-conversation-' + conversation.id);
 		if (self.options.verbose) console.log('Confer: subscribed to channel for conversation: ' + conversation.id);
 		channel.bind('NewMessageWasPosted', function(info) {
 			if (self.options.verbose) console.log('Confer: new conversation message received for conversation:' + info.conversation.id);
@@ -309,7 +309,7 @@
 	Confer.prototype._restoreRequestedConversationCheckingForMessages = function()
 	{
 
-		var self = this;
+		const self = this;
 
 		$.each(self.options.requested_conversations, function(index, value) {
 			self.beginCheckingForMessages({ id : value });
@@ -320,7 +320,7 @@
 	Confer.prototype.saveRequestedConversationToSession = function(conversation_id)
 	{
 
-		var self = this;
+		const self = this;
 
 		$.ajax({
 			url: self.options.base_url + '/confer/requests/session',
@@ -349,7 +349,7 @@
 	Confer.prototype._initEvents = function ()
 	{
 
-		var self = this;
+		const self = this;
 
 		self.open_conversation_list.delegate('li', 'click', function() {
 			self.loadConversation($(this).attr('data-conversationId'));
@@ -365,8 +365,8 @@
 		self.overlay_content.delegate('form.confer-new-message-form', 'submit', function(e) {
 			e.preventDefault();
 
-			var $form = $(this);
-			self.sendNewMessage($form);
+		const $form = $(this);
+		self.sendNewMessage($form);
 		});
 
 		self.overlay_content.keyup(function(e) {
@@ -381,20 +381,20 @@
 		});
 
 		self.overlay_content.delegate('.confer-new-message-input', 'keyup', function(e) {
-			var $input = $(this);
-			var key = String.fromCharCode(e.keyCode);
-			if ($input.val().length === 1 && self.options.grammar_enforcer)
+		const $input = $(this);
+		const key = String.fromCharCode(e.keyCode);
+		if ($input.val().length === 1 && self.options.grammar_enforcer)
+		{
+			$input.val($input.val().capitalize());
+		} else if ((key === ' ' || key === '!' || key === ',' || key === '?' || key === '.') && self.options.grammar_enforcer) {
+			// we need to check for space being used and if previous two chars is ' x' where x is a number, so we can replace with english #grammarnazi
+			const position = $(this).getCursorPosition();
+			const sub_string = $input.val().substring(position - 3, position);
+			if (sub_string.match(/\d+/g) && sub_string.charAt(0) === ' ')
 			{
-				$input.val($input.val().capitalize());
-		    } else if ((key === ' ' || key === '!' || key === ',' || key === '?' || key === '.') && self.options.grammar_enforcer) {
-		    	// we need to check for space being used and if previous two chars is ' x' where x is a number, so we can replace with english #grammarnazi
-		    	var position = $(this).getCursorPosition();
-		    	var sub_string = $input.val().substring(position - 3, position);
-		    	if (sub_string.match(/\d+/g) && sub_string.charAt(0) === ' ')
-		    	{
-		    		$input.val($input.val().replace(sub_string, self.numberReplacer[parseInt(sub_string.replace( /^\D+/g, ''))]));
-		    	}
+				$input.val($input.val().replace(sub_string, self.numberReplacer[parseInt(sub_string.replace( /^\D+/g, ''))]));
 			}
+		}
 			$input.height($input[0].scrollHeight - 10);
 		});
 
@@ -421,17 +421,17 @@
 		});
 
 		self.overlay_content.delegate('ul.confer-invite-user-list li', 'click', function() {
-			var $li = $(this);
-			var user_id = $li.attr('data-userId');
+		const $li = $(this);
+		const user_id = $li.attr('data-userId');
 
-			$li.toggleClass('confer-invited-user');
+		$li.toggleClass('confer-invited-user');
 		});
 
 		self.overlay_content.delegate('form.confer-invite-form', 'submit', function(e) {
 			e.preventDefault();
 
-			var $form = $(this);
-			self.submitInvitesAndUpdateConversation($form);
+		const $form = $(this);
+		self.submitInvitesAndUpdateConversation($form);
 		});
 
 		self.overlay_content.delegate('i.confer-leave-conversation', 'click', function() {
@@ -448,12 +448,12 @@
 		});
 
 		self.open_conversation_list.on('contextmenu', 'li', function(event) {
-			// Get position of the list item
-            var position = $(this).offset();
-            var $this = $(this);
-            var is_private = $this.attr('data-isPrivate'),
-            conversation_id = $this.attr('data-conversationId');
-            if (parseInt(conversation_id) > 1)
+		// Get position of the list item
+		const position = $(this).offset();
+		const $this = $(this);
+		const is_private = $this.attr('data-isPrivate'),
+			conversation_id = $this.attr('data-conversationId');
+		if (parseInt(conversation_id) > 1)
             {
             	// Make the menu visible, and position it relative to the list item
             	self.context_menu.css({'top':position.top + 10, 'left': position.left - 40}).attr('data-conversationContextId', $this.attr('data-conversationId')).show();
@@ -494,9 +494,9 @@
 
         self.options.messages_container.delegate('ul.confer-conversation-list li', 'click', function() {
         	if (self.options.verbose) console.log('Confer: opening conversation from bar');
-        	var $li = $(this);
-        	var conversation_id = $li.attr('data-conversationId'),
-        	user_id = $li.is('[data-userid]') ? $li.attr('data-userid') : false;
+        	const $li = $(this);
+        	const conversation_id = $li.attr('data-conversationId'),
+        		user_id = $li.is('[data-userid]') ? $li.attr('data-userid') : false;
 
         	if ( ! user_id) self.makeConversationUsersListen(conversation_id);
 
@@ -506,9 +506,9 @@
 
         self.overlay_content.delegate('ul.confer-conversation-list li', 'click', function() {
         	if (self.options.verbose) console.log('Confer: opening conversation from all conversation list');
-        	var $li = $(this);
-        	var conversation_id = $li.attr('data-conversationId'),
-        	user_id = $li.is('[data-userid]') ? $li.attr('data-userid') : false;
+        	const $li = $(this);
+        	const conversation_id = $li.attr('data-conversationId'),
+        		user_id = $li.is('[data-userid]') ? $li.attr('data-userid') : false;
 
         	if ( ! user_id) self.makeConversationUsersListen(conversation_id);
 
@@ -533,7 +533,7 @@
 	Confer.prototype.makeConversationUsersListen = function(conversation_id)
 	{
 
-		var self = this;
+		const self = this;
 
 		$.ajax({
 			url: self.options.base_url + '/confer/conversation/' + conversation_id + '/requested',
@@ -549,16 +549,16 @@
 
 	Confer.prototype.makeError = function (error_msg, $input, highlight_input)
 	{
-		var highlight_input = (typeof highlight_input === 'undefined' ? true : highlight_input);
-		var $error = $('<span></span>').addClass('confer-form-error').text(error_msg);
+		const highlight_input_val = (typeof highlight_input === 'undefined' ? true : highlight_input);
+		const $error = $('<span></span>').addClass('confer-form-error').text(error_msg);
 
 		$error.css('width', $input.width());
-		if (highlight_input) $input.addClass('confer-input-has-error');
+		if (highlight_input_val) $input.addClass('confer-input-has-error');
 		$input.after($error);
 
 		$input.click(function() {
 			$error.remove();
-			if (highlight_input) $input.removeClass('confer-input-has-error');
+			if (highlight_input_val) $input.removeClass('confer-input-has-error');
 			$input.off('click');
 		});
 
@@ -568,7 +568,7 @@
 	Confer.prototype.loadAllConversationsList = function ()
 	{
 
-		var self = this;
+		const self = this;
 
 		self.showOverlay();
 		self.isLoading();
@@ -588,7 +588,7 @@
 	Confer.prototype.loadSettings = function ()
 	{
 
-		var self = this;
+		const self = this;
 
 		self.showOverlay();
 		self.isLoading();
@@ -601,7 +601,7 @@
 	Confer.prototype.leaveConversation = function(conversation_id, from_context)
 	{
 
-		var self = this;
+		const self = this;
 
 		// Do leaving
 		$.ajax({
@@ -624,7 +624,7 @@
 	Confer.prototype.leaveCurrentConversation = function ()
 	{
 
-		var self = this;
+		const self = this;
 
 		self.leaveConversation(self.open_conversation, false);
 
@@ -633,9 +633,9 @@
 	Confer.prototype.closeConversation = function (conversation_id)
 	{
 
-		var self = this;
+		const self = this;
 
-		var conversation = self.open_conversation_list.find('li[data-conversationId=' + conversation_id + ']');
+		const conversation = self.open_conversation_list.find('li[data-conversationId=' + conversation_id + ']');
 		conversation.fadeOut(100);
 		setTimeout(function() {
 			conversation.remove();
@@ -649,14 +649,14 @@
 	Confer.prototype.submitInvitesAndUpdateConversation = function ($form)
 	{
 
-		var self = this;
+		const self = this;
 
-		var invited_users = [];
+		const invited_users = [];
 		self.overlay_content.find('li.confer-invited-user').each(function(index, value) {
 			invited_users.push($(this).attr('data-userId'));
 		});
 
-		var data = { invited_users : invited_users, _token : self.options.token, _method : 'PATCH' };
+		const data = { invited_users : invited_users, _token : self.options.token, _method : 'PATCH' };
 		if (self.overlay_content.find('input[name=conversation_name]').length > 0) {
 			data.conversation_name = self.overlay_content.find('input[name=conversation_name]').val();
 			data.name_is_required = true;
@@ -676,7 +676,7 @@
 			error: function(data) {
 				if (data.status === 422)
 				{
-					var errors = data.responseJSON;
+					const errors = data.responseJSON;
 					if (typeof errors.conversation_name === 'undefined')
 					{
 						self.makeError(errors[Object.keys(errors)[0]], $form.find('input[name=conversation_name]'), false);
@@ -692,7 +692,7 @@
 	Confer.prototype.goBackToOpenConversation = function ()
 	{
 
-		var self = this;
+		const self = this;
 
 		self.overlay_content.fadeOut(50);
 		//var cur_margin = self.overlay_content.css('margin-left');
@@ -709,7 +709,7 @@
 	Confer.prototype.showInviteList = function ()
 	{
 
-		var self = this;
+		const self = this;
 
 		self.overlay_content.fadeOut(50);
 		self.isLoading();
@@ -722,9 +722,9 @@
 	Confer.prototype.saveConversationsToSession = function ()
 	{
 
-		var self = this;
+		const self = this;
 
-		var html = self.open_conversation_list.html();
+		const html = self.open_conversation_list.html();
 		$.ajax({
 			url: self.options.base_url + '/confer/session',
 			type: 'POST',
@@ -746,10 +746,10 @@
 	Confer.prototype.loadMoreMessages = function ()
 	{
 
-		var self = this;
-		var list = self.overlay_content.find('ul.confer-conversation-message-list');
-		var current_message_id = self.most_previous_message_id ? self.most_previous_message_id : list.children('li').first().attr('data-messageId');
-		var DOM_messages = $();
+		const self = this;
+		const list = self.overlay_content.find('ul.confer-conversation-message-list');
+		const current_message_id = self.most_previous_message_id ? self.most_previous_message_id : list.children('li').first().attr('data-messageId');
+		const DOM_messages = $();
 		$.ajax({
 			url: self.options.base_url + '/confer/conversation/' + self.open_conversation + '/messages',
 			type: 'GET',
@@ -757,10 +757,10 @@
 			success: function(messages) {
 				if ($.isEmptyObject(messages)) return self.removeLoadMoreMessagesOption();
 
-				var num_messages = 0;
-				for (e in messages) { num_messages++; }
+				let num_messages = 0;
+				for (let e in messages) { num_messages++; }
 				$.each(messages, function(index, message) {
-					var DOM_message = self.constructConversationMessage(message, true);
+					const DOM_message = self.constructConversationMessage(message, true);
 					DOM_message.hide();
 					list.prepend(DOM_message);
 					DOM_messages.push(DOM_message);
@@ -770,9 +770,9 @@
 					}
 				});
 				DOM_messages.each(function(message) {
-					var $this = $(this);
+					const $this = $(this);
 					$this.slideDown(100);
-					var body = $this.find('.confer-message-body');
+					const body = $this.find('.confer-message-body');
 					if (body.length && self.options.use_emoji) body.html(emojione.shortnameToImage($body.text()));
 				});
 				if (num_messages < 5) self.removeLoadMoreMessagesOption();
@@ -787,7 +787,7 @@
 	Confer.prototype.initiateConversationWithUser = function (user_id)
 	{
 
-		var self = this;
+		const self = this;
 
 		self.isLoading();
 		self.overlay_content.load(self.options.base_url + '/confer/conversation/find/user/' + user_id, function() {
@@ -804,12 +804,12 @@
 	Confer.prototype.createConversationIconInBar = function(user_id, conversation_id, is_group)
 	{
 
-		var self = this;
+		const self = this;
 
-		var is_group = (typeof is_group === 'undefined' ? false : is_group);
+		const is_group_val = (typeof is_group === 'undefined' ? false : is_group);
 
 		$.ajax({
-			url: is_group ? self.options.base_url + '/confer/conversation/' + conversation_id + '/info' :  self.options.base_url + '/confer/user/' + user_id + '/conversation/' + conversation_id + '/info',
+			url: is_group_val ? self.options.base_url + '/confer/conversation/' + conversation_id + '/info' :  self.options.base_url + '/confer/user/' + user_id + '/conversation/' + conversation_id + '/info',
 			type: 'POST',
 			data: { _token : self.options.token },
 			success: function(data) {
@@ -822,11 +822,11 @@
 	Confer.prototype.generateConversationInBar = function (info)
 	{
 		// info format: { user : user, conversation : conversation }
-		var self = this;
+		const self = this;
 
-		var is_group_convo = (typeof info.user === 'undefined' ? true : false);
+		const is_group_convo = (typeof info.user === 'undefined' ? true : false);
 
-		var $li = $('<li></li>').attr('data-conversationId', info.conversation.id).attr('data-isPrivate', info.conversation.is_private), // conversationId should always be set to info.conversation.id ?
+		const $li = $('<li></li>').attr('data-conversationId', info.conversation.id).attr('data-isPrivate', info.conversation.is_private), // conversationId should always be set to info.conversation.id ?
 			$message = $('<div></div>').addClass('confer-message').addClass('confer-message-east'),
 			$message_item = $('<span></span>').addClass('confer-message-item'),
 			$avatar = $('<img>').addClass('confer-open-conversation-avatar').attr('src', is_group_convo ? self.options.avatar_dir + 'avatar-group.png' : self.options.avatar_dir + info.user.avatar),
@@ -854,7 +854,7 @@
 	Confer.prototype.getUserInfo = function (user_id)
 	{
 
-		var self = this;
+		const self = this;
 
 		$.ajax({
 			url: self.options.base_url + '/confer/user/' + user_id + '/info',
@@ -870,7 +870,7 @@
 	Confer.prototype.loadUserList = function ()
 	{
 
-		var self = this;
+		const self = this;
 
 		self.showOverlay();
 		self.isLoading();
@@ -890,9 +890,9 @@
 	Confer.prototype.sendNewMessage = function ($form)
 	{
 
-		var self = this;
+		const self = this;
 
-		var body = $form.find('.confer-new-message-input').val();
+		const body = $form.find('.confer-new-message-input').val();
 
 		if ( ! self.messageIsValid(body)) return false;
 
@@ -904,11 +904,11 @@
 			success: function (message)
 			{
 				self.addMessageToConversation(message);
-				/*var message = self.constructConversationMessage(message);
-				var list = self.overlay_content.find('ul.confer-conversation-message-list');
-				message.hide();
-				list.append(message);
-				message.slideDown(100);
+				/*const message_const = self.constructConversationMessage(message);
+				const list = self.overlay_content.find('ul.confer-conversation-message-list');
+				message_const.hide();
+				list.append(message_const);
+				message_const.slideDown(100);
 				setTimeout(function() {
 					list.scrollTop(list.prop("scrollHeight"));
 				}, 150);*/
@@ -920,7 +920,7 @@
 	Confer.prototype.closeOverlay = function ()
 	{
 
-		var self = this;
+		const self = this;
 
 		self.overlay.fadeOut(100);
 		setTimeout(function() {
@@ -938,7 +938,7 @@
 	Confer.prototype.loadConversation = function (conversation_id)
 	{
 
-		var self = this;
+		const self = this;
 
 		self.showOverlay();
 		//if (parseInt(self.last_loaded_conversation) !== parseInt(conversation_id))
@@ -976,7 +976,7 @@
 	Confer.prototype.conversationLoaded = function (conversation_id, without_server)
 	{
 
-		var self = this;
+		const self = this;
 		/*if ( ! without_server)
 		{
 			self.overlay_content.fadeIn(100);
@@ -999,10 +999,10 @@
 	Confer.prototype.initialiseEmoji = function ()
 	{
 
-		var self = this;
+		const self = this;
 
 		self.overlay_content.find('.confer-message-body').each(function(index, value) {
-			var text = $(this).text();
+			const text = $(this).text();
 			$(this).html(emojione.shortnameToImage(text));
 		});
 
@@ -1019,7 +1019,7 @@
 	Confer.prototype.beginPrivateConversationWithUser = function (user, conversation)
 	{
 
-		var self = this;
+		const self = this;
 
 		self.generateConversationInBar({ user : user, conversation : conversation });
 		self.showNewMessageForConversation(conversation.id);
@@ -1029,7 +1029,7 @@
 	Confer.prototype.beginGroupConversation = function (conversation)
 	{
 
-		var self = this;
+		const self = this;
 		self.generateConversationInBar({ conversation : conversation });
 		self.showNewMessageForConversation(conversation.id);
 
@@ -1038,13 +1038,13 @@
 	Confer.prototype.updateTimestamps = function ()
 	{
 
-		var self = this;
+		const self = this;
 
 		self.overlay_content.find('span.confer-message-timestamp').each(function(index, value) {
-			var $timestamp = $(this),
-			old_stamp = $timestamp.attr('data-timestamp');
+			const $timestamp = $(this),
+				old_stamp = $timestamp.attr('data-timestamp');
 
-			var old_moment = moment(old_stamp);
+			const old_moment = moment(old_stamp);
 			$timestamp.text(old_moment.fromNow());
 		});
 
@@ -1055,9 +1055,9 @@
 	Confer.prototype.showNewMessageForConversation = function (conversation_id)
 	{
 
-		var self = this;
+		const self = this;
 
-		var $div = self.open_conversation_list.find('li[data-conversationId=' + conversation_id + ']').find('div.confer-message');
+		const $div = self.open_conversation_list.find('li[data-conversationId=' + conversation_id + ']').find('div.confer-message');
 		if ( ! $div.hasClass('new-message'))
 		{
 			setTimeout(function() {
@@ -1070,9 +1070,9 @@
 	Confer.prototype.hideNewMessageIfPresentForConversation = function (conversation_id)
 	{
 
-		var self = this;
+		const self = this;
 
-		var $div = self.open_conversation_list.find('li[data-conversationId=' + conversation_id + ']').find('div.confer-message');
+		const $div = self.open_conversation_list.find('li[data-conversationId=' + conversation_id + ']').find('div.confer-message');
 		if ($div.hasClass('new-message'))
 		{
 			$div.removeClass('new-message');
@@ -1089,26 +1089,26 @@
 	Confer.prototype.constructConversationMessage = function (message, use_timestamp)
 	{
 
-		var self = this;
+		const self = this;
 
-		var use_timestamp = (typeof use_timestamp === 'undefined' ? false : use_timestamp);
-		var user_is_sender = parseInt(message.sender.id) === parseInt(self.current_user) ? true : false;
+		const use_timestamp_val = (typeof use_timestamp === 'undefined' ? false : use_timestamp);
+		const user_is_sender = parseInt(message.sender.id) === parseInt(self.current_user) ? true : false;
 
 		if (message['type'] === 'user_message')
 		{
-			var $message = $('<li></li>').addClass(user_is_sender ? 'confer-sent-message' : 'confer-received-message').attr('data-messageId', message.id),
+			const $message = $('<li></li>').addClass(user_is_sender ? 'confer-sent-message' : 'confer-received-message').attr('data-messageId', message.id),
 				$avatar = $('<img>').addClass('confer-user-avatar').addClass(user_is_sender ? 'confer-sent-avatar' : 'confer-received-avatar').attr('src', self.options.avatar_dir + message.sender.avatar),
 				$inner = $('<div></div>').addClass('confer-message-inner'),
 				$sender = $('<span></span>').addClass('confer-message-sender').text(message.sender.name),
-				$timestamp = $('<span></span>').addClass('confer-message-timestamp').text(use_timestamp ? message.created_at : 'Just now').attr('data-timestamp', message.created_at),
+				$timestamp = $('<span></span>').addClass('confer-message-timestamp').text(use_timestamp_val ? message.created_at : 'Just now').attr('data-timestamp', message.created_at),
 				$body = $('<span></span>').addClass('confer-message-body').text(message.body);
 
 			$inner.append($sender).append($body).append($timestamp);
 			return $message.append($avatar).append($inner);
 		} else {
-			var $message = $('<li></li>').addClass('confer-conversation-message').attr('data-messageId', message.id),
+			const $message = $('<li></li>').addClass('confer-conversation-message').attr('data-messageId', message.id),
 				$body = $('<span></span>').html(message.body),
-				$timestamp = $('<span></span>').addClass('confer-message-timestamp').text(use_timestamp ? message.created_at : 'Just now').attr('data-timestamp', message.created_at);
+				$timestamp = $('<span></span>').addClass('confer-message-timestamp').text(use_timestamp_val ? message.created_at : 'Just now').attr('data-timestamp', message.created_at);
 
 			return $message.append($body).append($timestamp);
 		}
