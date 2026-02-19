@@ -1,5 +1,5 @@
 # Confer
-Add a real-time chat system to your laravel 5 website/application in a few lines of code
+Add a real-time chat system to your Laravel website/application in a few lines of code
 
 Recently I have had a few projects that have required a chat feature, and I wanted to create a laravel package - so here it is!
 
@@ -20,8 +20,8 @@ Other requirements:
 
  * moment.js (it made me sad to have to require this, but it makes updating the chat timestamps so much easier)
  * jQuery
- * Font Awesome
- * the Laravel HTML/Form helpers (Illuminate\Html)
+ * Font Awesome 6
+ * the Laravel HTML/Form helpers (laravelcollective/html)
 
 # Installation
 
@@ -31,9 +31,9 @@ Require the package via composer:
 Publish the assets:
 `php artisan vendor:publish`
 
-Add the service provider `Tpojka\Confer\ConferServiceProvider` to your `config\app.php`
+Add the service provider `Tpojka\Confer\ConferServiceProvider::class` to your `config/app.php`
 
-Add the seed to your database seed caller (default is `database\seeds\DatabaseSeeder.php`):
+Add the seed to your database seed caller (typically `database/seeds/DatabaseSeeder.php` or `database/seeders/DatabaseSeeder.php`):
 
 ```php
 class DatabaseSeeder extends Seeder {
@@ -59,27 +59,32 @@ Add the trait to your User model:
 ```php
 use Tpojka\Confer\Traits\CanConfer;
 
-class User extends Model {
+class User extends Authenticatable {
 
   use CanConfer;
 
 }
 ```
 
-Link to the css file, and import the view partials in whichever pages you wish to have the chat on, or put it in your app/master file (if you are using one) to show on all pages:
+Link to the css file, and import the view partials in whichever pages you wish to have the chat on, or put it in your app/master file (if you are using one) to show on all pages. 
+
+**Note: The JS partial must be wrapped in an `@auth` check since it requires a logged-in user.**
 
 ```html
 <link href="{{ asset('vendor/confer/css/confer.css') }}" rel="stylesheet">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-@include('confer::confer')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+@auth
+    @include('confer::confer')
+@endauth
 
 <script src="/js/jquery.min.js"></script>
 <script src="/js/pusher.min.js"></script>
 <script src="/js/moment.min.js"></script>
 
-@if(Auth::check())
-@include('confer::js')
-@endif
+@auth
+    @include('confer::js')
+@endauth
 ```
 
 # Configuration
@@ -93,15 +98,7 @@ There are a number of options in the confer.php config file which are quite self
 
 The avatar, loader and company avatar are all relative to your app's /public dir.
 
-Your Pusher app details are not configured in the config file provided, they are instead expected to be provided in your `config\services.php` file in the format:
-
-```php
-'pusher' => [
-  'public' => 'public_key',
-  'secret' => 'secret_key',
-  'app_id' => 'app_id'
-]
-```
+Your Pusher app details are not configured in the config file provided, they are instead expected to be provided in your `config/broadcasting.php` file (standard Laravel broadcasting configuration).
 
 # Assumptions of the package
 The package assumes you have a User model in the App namespace, and that this model has a `name` attribute (hey, if you don't have one already, why not create one with a custom getter?) and an `avatar` attribute - which is simply the filename of the avatar image file (for example `avatar-dan.jpg`) which will be appended to your avatar_dir provided in the config file of the package to find your avatar.
@@ -109,7 +106,13 @@ The package assumes you have a User model in the App namespace, and that this mo
 # Optionals
 There is an optional facebook messages type bar, which you can include in your project if you'd like that functionality.
 
-Simply put `@include('confer::barconversationlist')` inside a suitable containing element (like a dropdown li).
+Simply put the following inside a suitable containing element (like a dropdown li):
+
+```html
+@auth
+    @include('confer::barconversationlist')
+@endauth
+```
 
 If you are using bootstrap this is what I have my bar view inside:
 ```html
@@ -119,7 +122,9 @@ If you are using bootstrap this is what I have my bar view inside:
     <li style="width: 400px; min-height: 40px;">
       <ul id="messages_holder_in_bar">
       
-      @include('confer::barconversationlist')
+      @auth
+          @include('confer::barconversationlist')
+      @endauth
       
       </ul>
       <!-- Messages -->
