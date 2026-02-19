@@ -101,13 +101,14 @@
 	
 		const self = this;
 
-		if (typeof Pusher === "undefined")
-		{
+		if (typeof Pusher === "undefined") {
 			console.log('Confer: Pusher is not loaded, failed to load chat');
 			return false;
-		} else if ( ! self.options.pusher_key)
-		{
+		} else if ( ! self.options.pusher_key) {
 			console.log('Confer: Pusher key was not set or is invalid');
+			return false;
+		} else if ( ! self.options.cluster) {
+			console.log('Confer: Pusher cluster was not set or is invalid');
 			return false;
 		}
 
