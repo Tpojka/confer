@@ -1,3 +1,12 @@
+### [9.0.0] - 2026-02-22
+
+#### Added
+- Support for Laravel 9.0 (`illuminate/support: ^9.0`).
+- Minimum PHP requirement bumped to `>=8.0` to match Laravel 9.
+
+#### Changed
+- Updated `src/Http/routes.php` with `use Illuminate\Support\Facades\Route;` for better compatibility.
+
 ### [8.0.0] - 2026-02-22
 
 #### Added

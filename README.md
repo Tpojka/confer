@@ -95,6 +95,11 @@ The avatar, loader and company avatar are all relative to your app's /public dir
 
 Your Pusher app details are not configured in the config file provided, they are instead expected to be provided in your `config/broadcasting.php` file (standard Laravel broadcasting configuration).
 
+## Upgrade to Laravel 9.0
+Version 9.0 of the package supports Laravel 9.0 and above.
+- Minimum PHP requirement: `>=8.0`
+- Dependencies: `illuminate/support: ^9.0`, `pusher/pusher-php-server: ^4.0`
+
 ## Upgrade to Laravel 8.0
 Version 8.0 of the package supports Laravel 8.0 and above.
 - Minimum PHP requirement: `>=7.3`

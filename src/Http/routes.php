@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::model('conferconversation', 'Tpojka\Confer\Conversation');
 Route::model('conferuser', 'App\User');
 
