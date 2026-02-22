@@ -15,10 +15,11 @@ div.confer-overlay {
 }
 
 div.confer-overlay-content {
-  display: none;
+  display: block;
   width: 70%;
   margin: 40px auto;
   text-align: center;
+  opacity: 0;
 }
 
 img.confer-overlay-loader {
@@ -68,10 +69,10 @@ button.confer-overlay-close:hover {
 
 div.confer-open-conversations {
 	position: fixed;
-	top: 40px;
+	top: 60px;
 	right: 0;
-	height: calc(100% - 40px);
-	z-index: 999;
+	height: calc(100% - 60px);
+	z-index: 1000;
 }
 
 div.confer-open-conversations.confer-disabled {
@@ -116,15 +117,23 @@ div.confer-icon-list {
 	position: absolute;
 	bottom: 10px;
 	right: 0;
-	width: 47px;
+	width: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 15px;
+	padding: 0 10px;
 }
 
-i.confer-user-list-icon {
-	margin: 2px;
+i.confer-user-list-icon, i.confer-settings-icon, i.confer-all-conversations-icon {
+	cursor: pointer;
+	font-size: 24px;
+	color: #6c757d;
+	transition: color 0.2s ease;
 }
 
-i.confer-settings-icon {
-	margin: 2px;
+i.confer-user-list-icon:hover, i.confer-settings-icon:hover, i.confer-all-conversations-icon:hover {
+	color: #007bff;
 }
 
 .confer-message-item {
@@ -357,7 +366,7 @@ ul.confer-user-list {
 ul.confer-user-list li {
 	padding: 10px 20px;
 	text-align: left;
-	display: inline-block;
+	display: block;
 	border-radius: 20px;
 }
 

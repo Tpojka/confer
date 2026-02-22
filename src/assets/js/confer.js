@@ -11,7 +11,7 @@
 	    this.open_conversation_list = conversation_list;
 	    this.current_user = current_user_id;
 
-	    $.extend(this.options, options);
+	    this.options = $.extend({}, Confer.prototype.options, options);
 	    this._init();
 
 	}
@@ -352,25 +352,31 @@
 
 		const self = this;
 
-		self.open_conversation_list.delegate('li', 'click', function() {
+		self.open_conversation_list.on('click', 'li', function() {
 			self.loadConversation($(this).attr('data-conversationId'));
 		});
 
-		self.overlay.delegate('button.confer-overlay-close', 'click', function(e) {
+		self.open_conversation_list.on('click', '.confer-message-content', function(e) {
+			e.stopPropagation();
+			const conversation_id = $(this).closest('li').attr('data-conversationId');
+			self.loadConversation(conversation_id);
+		});
+
+		self.overlay.on('click', 'button.confer-overlay-close', function(e) {
 			e.preventDefault();
 			self.closeOverlay();
 			if (typeof self.updateTimestampSchedule !== 'undefined') clearInterval(self.updateTimestampSchedule);
 			self.open_conversation = false;
 		});
 
-		self.overlay_content.delegate('form.confer-new-message-form', 'submit', function(e) {
+		self.overlay_content.on('submit', 'form.confer-new-message-form', function(e) {
 			e.preventDefault();
 
 		const $form = $(this);
 		self.sendNewMessage($form);
 		});
 
-		self.overlay_content.keyup(function(e) {
+		self.overlay_content.on('keyup', function(e) {
 			if (e.keyCode == 13) {
 				if (self.overlay_content.find('form').length === 1)
 				{
@@ -381,7 +387,7 @@
 			}
 		});
 
-		self.overlay_content.delegate('.confer-new-message-input', 'keyup', function(e) {
+		self.overlay_content.on('keyup', '.confer-new-message-input', function(e) {
 		const $input = $(this);
 		const key = String.fromCharCode(e.keyCode);
 		if ($input.val().length === 1 && self.options.grammar_enforcer)
@@ -414,39 +420,39 @@
 			self.loadAllConversationsList();
 		});
 
-		self.overlay_content.delegate('i.confer-invite-users', 'click', function() {
+		self.overlay_content.on('click', 'i.confer-invite-users', function() {
 			self.showInviteList();
 		});
 
-		self.overlay_content.delegate('button.confer-invite-back-button', 'click', function(e) {
+		self.overlay_content.on('click', 'button.confer-invite-back-button', function(e) {
 			e.preventDefault();
 
 			self.goBackToOpenConversation();
 		});
 
-		self.overlay_content.delegate('ul.confer-invite-user-list li', 'click', function() {
+		self.overlay_content.on('click', 'ul.confer-invite-user-list li', function() {
 		const $li = $(this);
 		const user_id = $li.attr('data-userId');
 
 		$li.toggleClass('confer-invited-user');
 		});
 
-		self.overlay_content.delegate('form.confer-invite-form', 'submit', function(e) {
+		self.overlay_content.on('submit', 'form.confer-invite-form', function(e) {
 			e.preventDefault();
 
 		const $form = $(this);
 		self.submitInvitesAndUpdateConversation($form);
 		});
 
-		self.overlay_content.delegate('i.confer-leave-conversation', 'click', function() {
+		self.overlay_content.on('click', 'i.confer-leave-conversation', function() {
 			self.leaveCurrentConversation(false);
 		});
 
-		self.overlay_content.delegate('ul.confer-user-list li', 'click', function() {
+		self.overlay_content.on('click', 'ul.confer-user-list li', function() {
 			self.initiateConversationWithUser($(this).attr('data-userId'));
 		});
 
-		self.overlay_content.delegate('div.confer-load-more-messages', 'click', function() {
+		self.overlay_content.on('click', 'div.confer-load-more-messages', function() {
 			if (self.options.verbose) console.log('Confer: getting previous messages');
 			self.loadMoreMessages();
 		});
@@ -477,18 +483,18 @@
 			}
 
             // Make sure the original context menu doesn't appear
-            window.event.returnValue = false;
+            event.preventDefault();
         });
 
-        self.context_menu.delegate('li#confer-context-leave-conversation', 'click', function() {
+        self.context_menu.on('click', 'li#confer-context-leave-conversation', function() {
         	self.leaveConversation(self.context_menu.attr('data-conversationContextId'), true);
         });
 
-        self.context_menu.delegate('li#confer-context-close-conversation', 'click', function() {
+        self.context_menu.on('click', 'li#confer-context-close-conversation', function() {
         	self.closeConversation(self.context_menu.attr('data-conversationContextId'));
         });
 
-        self.options.messages_trigger.click(function() {
+        self.options.messages_trigger.on('click', function() {
         	//self.barIsLoading();
         	self.options.messages_container.load(self.options.base_url + '/confer/conversations/bar', function() {
         		//self.barFinishedLoading();
@@ -496,7 +502,7 @@
         	});
         });
 
-        self.options.messages_container.delegate('ul.confer-conversation-list li', 'click', function() {
+        self.options.messages_container.on('click', 'ul.confer-conversation-list li', function() {
         	if (self.options.verbose) console.log('Confer: opening conversation from bar');
         	const $li = $(this);
         	const conversation_id = $li.attr('data-conversationId'),
@@ -508,7 +514,7 @@
         	if ( ! self.conversationIsInList(conversation_id)) self.createConversationIconInBar(user_id ? user_id : null, conversation_id, ! user_id);
         });
 
-        self.overlay_content.delegate('ul.confer-conversation-list li', 'click', function() {
+        self.overlay_content.on('click', 'ul.confer-conversation-list li', function() {
         	if (self.options.verbose) console.log('Confer: opening conversation from all conversation list');
         	const $li = $(this);
         	const conversation_id = $li.attr('data-conversationId'),
@@ -520,7 +526,7 @@
         	if ( ! self.conversationIsInList(conversation_id)) self.createConversationIconInBar(user_id ? user_id : null, conversation_id, ! user_id);
         });
 
-        self.options.messages_container.delegate('button.confer-show-all-conversations', 'click', function(e) {
+        self.options.messages_container.on('click', 'button.confer-show-all-conversations', function(e) {
         	e.preventDefault();
 
         	self.loadAllConversationsList();
@@ -560,7 +566,7 @@
 		if (highlight_input_val) $input.addClass('confer-input-has-error');
 		$input.after($error);
 
-		$input.click(function() {
+		$input.on('click', function() {
 			$error.remove();
 			if (highlight_input_val) $input.removeClass('confer-input-has-error');
 			$input.off('click');
@@ -576,7 +582,10 @@
 
 		self.showOverlay();
 		self.isLoading();
-		self.overlay_content.load(self.options.base_url + '/confer/conversations', function() {
+		self.overlay_content.load(self.options.base_url + '/confer/conversations', function(response, status, xhr) {
+			if (status === "error") {
+				self.overlay_content.html("<p>Error loading conversations. Please try again.</p>");
+			}
 			self.finishedLoading();
 		});
 
@@ -596,7 +605,10 @@
 
 		self.showOverlay();
 		self.isLoading();
-		self.overlay_content.load(self.options.base_url + '/confer/settings', function() {
+		self.overlay_content.load(self.options.base_url + '/confer/settings', function(response, status, xhr) {
+			if (status === "error") {
+				self.overlay_content.html("<p>Error loading settings. Please try again.</p>");
+			}
 			self.finishedLoading();
 		});
 
@@ -702,7 +714,10 @@
 		//var cur_margin = self.overlay_content.css('margin-left');
 		//self.overlay_content.animate({ marginLeft: "100%"} , 100);
 		self.isLoading();
-		self.overlay_content.load(self.options.base_url + '/confer/conversation/' + self.open_conversation, function() {
+		self.overlay_content.load(self.options.base_url + '/confer/conversation/' + self.open_conversation, function(response, status, xhr) {
+			if (status === "error") {
+				self.overlay_content.html("<p>Error loading conversation. Please try again.</p>");
+			}
 			self.finishedLoading();
 			//self.overlay_content.animate({ marginLeft: cur_margin} , 100);
 			self.overlay_content.find('textarea[name=body]').focus();
@@ -717,7 +732,10 @@
 
 		self.overlay_content.fadeOut(50);
 		self.isLoading();
-		self.overlay_content.load(self.options.base_url + '/confer/conversation/' + self.open_conversation + '/invite', function() {
+		self.overlay_content.load(self.options.base_url + '/confer/conversation/' + self.open_conversation + '/invite', function(response, status, xhr) {
+			if (status === "error") {
+				self.overlay_content.html("<p>Error loading invite list. Please try again.</p>");
+			}
 			self.finishedLoading();
 		});
 
@@ -768,12 +786,12 @@
 					DOM_message.hide();
 					list.prepend(DOM_message);
 					DOM_messages.push(DOM_message);
-					if (parseInt(index) === num_messages - 1)
+ 				if (parseInt(index) === num_messages - 1)
 					{
 						self.most_previous_message_id = message.id;
 					}
 				});
-				DOM_messages.each(function(message) {
+				DOM_messages.each(function() {
 					const $this = $(this);
 					$this.slideDown(100);
 					const body = $this.find('.confer-message-body');
@@ -794,7 +812,10 @@
 		const self = this;
 
 		self.isLoading();
-		self.overlay_content.load(self.options.base_url + '/confer/conversation/find/user/' + user_id, function() {
+		self.overlay_content.load(self.options.base_url + '/confer/conversation/find/user/' + user_id, function(response, status, xhr) {
+			if (status === "error") {
+				self.overlay_content.html("<p>Error starting conversation. Please try again.</p>");
+			}
 			self.finishedLoading();
 			self.conversationLoaded(self.overlay_content.find('ul.confer-conversation-message-list').attr('data-conversationId'), false);
 			if ( ! self.conversationIsInList(self.open_conversation))
@@ -878,7 +899,10 @@
 
 		self.showOverlay();
 		self.isLoading();
-		self.overlay_content.load(self.options.base_url + '/confer/users', function() {
+		self.overlay_content.load(self.options.base_url + '/confer/users', function(response, status, xhr) {
+			if (status === "error") {
+				self.overlay_content.html("<p>Error loading user list. Please try again.</p>");
+			}
 			self.finishedLoading();
 		});
 
@@ -928,7 +952,7 @@
 
 		self.overlay.fadeOut(100);
 		setTimeout(function() {
-			self.overlay_content.empty();
+			self.overlay_content.empty().css('opacity', 0);
 		}, 150);
 		self.most_previous_message_id = false;
 
@@ -948,7 +972,10 @@
 		//if (parseInt(self.last_loaded_conversation) !== parseInt(conversation_id))
 		//{
 			self.isLoading();
-			self.overlay_content.load(self.options.base_url + '/confer/conversation/' + conversation_id, function() {
+			self.overlay_content.load(self.options.base_url + '/confer/conversation/' + conversation_id, function(response, status, xhr) {
+				if (status === "error") {
+					self.overlay_content.html("<p>Error loading conversation. Please try again.</p>");
+				}
 				self.finishedLoading();
 				self.conversationLoaded(conversation_id, false);
 			});
@@ -968,7 +995,7 @@
 	{
 
 		this.loader.fadeOut(100);
-		if ( ! this.overlay_content.is(':visible')) this.overlay_content.fadeIn(100);
+		if (Number(this.overlay_content.css('opacity')) === 0) this.overlay_content.animate({ opacity: 1 }, 100);
 
 	}
 
@@ -1015,8 +1042,7 @@
 	Confer.prototype.showOverlay = function ()
 	{
 
-		if ( ! this.overlay.is(':visible')) this.overlay.fadeIn(100);
-		//this.overlay.fadeIn(100);
+		this.overlay.stop(true, true).fadeIn(100);
 
 	}
 
