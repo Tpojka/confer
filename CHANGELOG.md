@@ -1,3 +1,8 @@
+### [10.0.1] - 2026-02-22
+
+#### Fixed
+- Fixed user list loading error caused by changed Pusher response format in version 7.2.
+
 ### [10.0.0] - 2026-02-22
 
 #### Added

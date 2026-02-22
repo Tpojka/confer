@@ -22,12 +22,13 @@ class Confer {
 	public function getUsersState()
 	{
 		$channel_info = Push::get('/channels/' . $this->global . '/users');
-		$online_users = $channel_info['result']['users'];
+		$online_users = is_object($channel_info) && isset($channel_info->users) ? (array) $channel_info->users : [];
 
 		$online_ids = [];
 		foreach ($online_users as $online_user) {
-			$online_ids[] = $online_user['id'];
+			$online_ids[] = is_object($online_user) ? $online_user->id : (is_array($online_user) ? $online_user['id'] : null);
 		}
+		$online_ids = array_filter($online_ids);
 
 		$users = User::ignoreMe()->get();
 		$online = $users->filter(function($user) use ($online_ids) {
