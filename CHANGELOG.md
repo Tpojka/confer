@@ -1,3 +1,9 @@
+### [11.0.0] - 2026-02-22
+
+#### Added
+- Support for Laravel 11.0 (`illuminate/support: ^11.0`).
+- Minimum PHP requirement bumped to `>=8.2` to match Laravel 11.
+
 ### [10.0.1] - 2026-02-22
 
 #### Fixed

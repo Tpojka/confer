@@ -10,8 +10,8 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=8.1",
-        "illuminate/support": "^10.0",
+        "php": ">=8.2",
+        "illuminate/support": "^11.0",
         "pusher/pusher-php-server": "^7.2"
     },
     "suggest": {
