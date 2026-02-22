@@ -1,6 +1,9 @@
-### [Unreleased]
+### [8.0.0] - 2026-02-22
 
 #### Added
+- Support for Laravel 8.0 (`illuminate/support: ^8.0`).
+- Support for Pusher 4.0 (`pusher/pusher-php-server: ^4.0`).
+- Minimum PHP requirement bumped to `>=7.3` to match Laravel 8.
 - Support for Font Awesome 6 icons.
 
 #### Changed
@@ -11,12 +14,15 @@
 - Improved `README.md` with accurate branch details and installation steps.
 
 #### Fixed
+- Layout of `confer-icon-list`: ensured icons are in a column instead of a row.
 - Replaced missing Weixin brand icon with FA6 solid comments icon.
 - Implemented delegated event listeners for chat icons.
 - Enabled verbose logging for easier troubleshooting.
 
 #### Removed
 - Removed `laravelcollective/html` dependency and replaced it with plain HTML in views.
+
+### [Unreleased]
 
 ### [7.0.0] - 2026-02-19
 

@@ -95,6 +95,11 @@ The avatar, loader and company avatar are all relative to your app's /public dir
 
 Your Pusher app details are not configured in the config file provided, they are instead expected to be provided in your `config/broadcasting.php` file (standard Laravel broadcasting configuration).
 
+## Upgrade to Laravel 8.0
+Version 8.0 of the package supports Laravel 8.0 and above.
+- Minimum PHP requirement: `>=7.3`
+- Dependencies: `illuminate/support: ^8.0`, `pusher/pusher-php-server: ^4.0`
+
 # Assumptions of the package
 The package assumes you have a User model in the App namespace, and that this model has a `name` attribute (hey, if you don't have one already, why not create one with a custom getter?) and an `avatar` attribute - which is simply the filename of the avatar image file (for example `avatar-dan.jpg`) which will be appended to your avatar_dir provided in the config file of the package to find your avatar.
 
