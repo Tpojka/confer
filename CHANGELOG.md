@@ -2,6 +2,7 @@
 
 #### Fixed
 - Fixed user list loading error caused by changed Pusher response format in version 7.2.
+- Fixed layout of `confer-icon-list`: set icons in same row below conversation avatars.
 
 ### [10.0.0] - 2026-02-22
 

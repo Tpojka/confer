@@ -116,12 +116,13 @@ span.confer-open-conversation-name {
 div.confer-icon-list {
 	position: absolute;
 	bottom: 10px;
-	right: 0;
+	right: 10px;
 	width: 60px;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	justify-content: center;
 	align-items: center;
-	gap: 15px;
+	gap: 5px;
 	padding: 0;
 }
 
