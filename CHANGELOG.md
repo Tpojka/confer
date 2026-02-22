@@ -1,3 +1,10 @@
+### [10.0.0] - 2026-02-22
+
+#### Added
+- Support for Laravel 10.0 (`illuminate/support: ^10.0`).
+- Support for Pusher 7.2 (`pusher/pusher-php-server: ^7.2`).
+- Minimum PHP requirement bumped to `>=8.1` to match Laravel 10.
+
 ### [9.0.0] - 2026-02-22
 
 #### Added
