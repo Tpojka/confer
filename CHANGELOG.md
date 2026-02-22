@@ -1,6 +1,26 @@
 ### [Unreleased]
 
 #### Added
+- Support for Font Awesome 6 icons.
+
+#### Changed
+- Modernized JavaScript: replaced `var` with `const`/`let` and improved code style.
+- Updated Pusher instantiation and improved JS initialization.
+- Moved authentication from external JS file to Blade templates.
+- Improved overlay behavior and markup in conversation list.
+- Improved `README.md` with accurate branch details and installation steps.
+
+#### Fixed
+- Replaced missing Weixin brand icon with FA6 solid comments icon.
+- Implemented delegated event listeners for chat icons.
+- Enabled verbose logging for easier troubleshooting.
+
+#### Removed
+- Removed `laravelcollective/html` dependency and replaced it with plain HTML in views.
+
+### [7.0.0] - 2026-02-19
+
+#### Added
 - Support for Laravel 7.0 (`illuminate/support: ^7.0`).
 - Minimum PHP requirement bumped to `>=7.2.5` to match Laravel 7.
 

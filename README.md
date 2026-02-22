@@ -4,24 +4,19 @@ Add a real-time chat system to your Laravel website/application in a few lines o
 Recently I have had a few projects that have required a chat feature, and I wanted to create a laravel package - so here it is!
 
 # Demo
-You can see a demo and test the package at [www.confer.work](http://www.confer.work).
-The demo is limited to 19 concurrent users, and you will automatically be logged in if a user slot is available - otherwise you may have to wait for a slot to free up.
-
-Everything you post in the demo will be saved under the test user you are logged in as, so please avoid rude language or sensitive information.
-
-I will refresh the database every now and again to clear the test messages.
+The demo is currently unavailable as the project is being upgraded.
 
 # Requirements
 The project currently requires Pusher (php-server and javascript) to allow real-time chat messaging. I really recommend this service if you need to do anything real-time - it's fast, reliable and very easy to implement in your projects.
 
-You can create a free sandbox account at [pusher.com](https://www.pusher.com) which lets you have 100,000 messages a day and 20 active users at one time. If you need higher limits they offer paid accounts at pretty decent prices.
+You can create a free sandbox account at [pusher.com](https://www.pusher.com) which lets you have 1,000,000 messages a day (or 200,000 depending on your plan) and 100 concurrent connections for free. If you need higher limits they offer paid accounts at pretty decent prices.
 
 Other requirements:
 
  * moment.js (it made me sad to have to require this, but it makes updating the chat timestamps so much easier)
  * jQuery
  * Font Awesome 6
- * the Laravel HTML/Form helpers (laravelcollective/html)
+ * the Laravel HTML/Form helpers (laravelcollective/html) - No longer required
 
 # Installation
 
@@ -38,16 +33,16 @@ Add the seed to your database seed caller (typically `database/seeds/DatabaseSee
 ```php
 class DatabaseSeeder extends Seeder {
 
-/**
- * Run the database seeds.
- *
- * @return void
- */
-public function run()
-{
-  Model::unguard();
-
-  $this->call('ConferSeeder');
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        // $this->call(ConferSeeder::class); // Laravel 7+ style
+        $this->call('ConferSeeder');
+    }
 }
 ```
 
@@ -78,9 +73,9 @@ Link to the css file, and import the view partials in whichever pages you wish t
     @include('confer::confer')
 @endauth
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/pusher.min.js"></script>
-<script src="/js/moment.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 @auth
     @include('confer::js')
