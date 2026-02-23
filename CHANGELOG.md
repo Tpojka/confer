@@ -1,3 +1,15 @@
+### [12.1.1] - 2026-02-23
+
+#### Fixed
+- Fixed `belongsToMany` relationship definitions in `Conversation.php` and `CanConfer.php` by correctly ordering pivot table keys (`conversation_id`, `user_id`).
+- Fixed SQL ambiguity errors by qualifying `id` columns with table names (`confer_conversations.id`, `users.id`) in joined queries.
+- Fixed `TypeError` in PHP 8.2+ by explicitly converting `pluck()` collections to arrays when used with native PHP functions (`array_merge`, `array_intersect`).
+
+#### Changed
+- Updated `composer.json` dev-dependencies to `orchestra/testbench: ^10.0` for Laravel 12 compatibility.
+- Improved `TestCase.php` to include in-memory SQLite schema and application key for more robust testing.
+- Decoupled tests from the main application by adding `App\` namespace to `autoload-dev` in `composer.json`.
+
 ### [12.1.0] - 2026-02-23
 
 #### Added

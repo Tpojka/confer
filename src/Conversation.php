@@ -3,11 +3,13 @@
 namespace Tpojka\Confer;
 
 use App\User;
-use Tpojka\Confer\Message;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 
-class Conversation extends Model {
-	
+class Conversation extends Model
+{
 	protected $fillable = ['name', 'is_private'];
 	protected $table = 'confer_conversations';
 	protected $guarded = ['id'];
@@ -16,36 +18,42 @@ class Conversation extends Model {
 	
 	/**
 	 * Get the participants of the conversation
-	 * 
-	 * @return belongsToMany
+     * @return BelongsToMany
 	 */
-	public function participants()
-	{
-		return $this->belongsToMany(User::class, 'confer_conversation_participants', 'user_id', 'conversation_id');
+	public function participants(): BelongsToMany
+    {
+		return $this->belongsToMany(User::class, 'confer_conversation_participants', 'conversation_id', 'user_id');
 	}
 
 	/**
 	 * Get the messages in the conversation
-	 * 
-	 * @return hasMany
 	 */
 	public function messages()
 	{
 		return $this->hasMany(Message::class, 'conversation_id');
 	}
 
-	public function isGlobal()
-	{
+    /**
+     * @return bool
+     */
+	public function isGlobal(): bool
+    {
 		return $this->id == 1;
 	}
 
-	public function isPrivate()
-	{
-		return $this->is_private;
+    /**
+     * @return bool
+     */
+	public function isPrivate(): bool
+    {
+		return $this->is_private == 1;
 	}
 
-	public function getChannel()
-	{
+    /**
+     * @return string
+     */
+	public function getChannel(): string
+    {
 		return 'private-conversation-' . $this->id;
 	}
 
@@ -54,45 +62,66 @@ class Conversation extends Model {
 	 * 
 	 * @return Collection
 	 */
-	public function getPotentialInvitees()
-	{
-		$currentParticipants = $this->participants()->pluck('id');
-		return User::whereNotIn('id', $currentParticipants)->get();
+	public function getPotentialInvitees(): Collection
+    {
+		$currentParticipants = $this->participants()->pluck('users.id');
+		return User::whereNotIn('users.id', $currentParticipants)->get();
 
 	}
 
-	public function createNewWithAdditionalParticipants(Array $users, $name)
-	{
+    /**
+     * @param array $users
+     * @param $name
+     * @return static
+     */
+	public function createNewWithAdditionalParticipants(Array $users, $name): static
+    {
 		$conversation = $this->create([
 			'name' => empty($name) ? 'Opps, I forgot to write a name - how embarrassing' : ucwords($name),
 			'is_private' => false
 		]);
 
-		$currentParticipants = $this->participants()->pluck('id');
-		$conversation->participants()->sync(array_merge($currentParticipants, $users));
+		$currentParticipants = $this->participants()->pluck('users.id');
+		$conversation->participants()->sync(array_merge($currentParticipants->toArray(), $users));
 
 		return $conversation;
 	}
 
-	public function addAdditionalParticipants(Array $users)
-	{
+    /**
+     * @param array $users
+     * @return void
+     */
+	public function addAdditionalParticipants(array $users): void
+    {
 		//$this->participants()->attach($users); cannot use this method due to SQL 2005
-		$this->participants()->sync(array_merge($this->participants()->pluck('id'), $users));
+		$this->participants()->sync(array_merge($this->participants()->pluck('users.id')->toArray(), $users));
 	}
 
-	public static function findOrCreateBetween(User $user, User $otherUser)
-	{
+    /**
+     * @param User $user
+     * @param User $otherUser
+     * @return static
+     */
+	public static function findOrCreateBetween(User $user, User $otherUser): static
+    {
 		$userParticipates = $user->privateConversations();
 		$otherUserParticipates = $otherUser->privateConversations();
 
 		$static = new static;
 
-		$sharedParticipations = collect(array_intersect($userParticipates, $otherUserParticipates));
-		return $sharedParticipations->isEmpty() ? $static->createBetween($user, $otherUser) : $static->find($sharedParticipations->first());
+		$sharedParticipations = collect(array_intersect($userParticipates->toArray(), $otherUserParticipates->toArray()));
+		return $sharedParticipations->isEmpty() 
+            ? $static->createBetween($user, $otherUser) 
+            : $static->find($sharedParticipations->first());
 	}
 
-	public function createBetween($user, $otherUser)
-	{
+    /**
+     * @param $user
+     * @param $otherUser
+     * @return static
+     */
+	public function createBetween($user, $otherUser): static
+    {
 		$conversation = $this->create([
 			'name' => 'Conversation between ' . $user->name . ' and ' . $otherUser->name,
 			'is_private' => true
@@ -105,14 +134,21 @@ class Conversation extends Model {
 		//$other_user->conversations()->attach($conversation->id);
 	}
 
-	public function scopeIgnoreGlobal($query)
-	{
-		return $query->where('id', '<>', 1);
+    /**
+     * @param $query
+     * @return Builder
+     */
+	public function scopeIgnoreGlobal($query): Builder
+    {
+		return $query->where('confer_conversations.id', '<>', 1);
 	}
 
-	public function scopeIsPrivate($query)
-	{
+    /**
+     * @param $query
+     * @return Builder
+     */
+	public function scopeIsPrivate($query): Builder
+    {
 		return $query->where('is_private', true);
 	}
-
 }

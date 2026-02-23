@@ -70,7 +70,7 @@ trait CanConfer {
 	 */
 	public function conversations()
 	{
-		return $this->belongsToMany(Conversation::class, 'confer_conversation_participants', 'conversation_id', 'user_id');
+		return $this->belongsToMany(Conversation::class, 'confer_conversation_participants', 'user_id', 'conversation_id');
 	}
 
 	/**
@@ -81,7 +81,7 @@ trait CanConfer {
 	 */
 	public function participatesIn($conversationId)
 	{
-		return ! $this->conversations()->where('id', $conversationId)->get()->isEmpty();
+		return ! $this->conversations()->where('confer_conversations.id', $conversationId)->get()->isEmpty();
 	}
 
 	/**
@@ -93,12 +93,12 @@ trait CanConfer {
 	 */
 	public function participatingConversations()
 	{
-		return $this->conversations()->ignoreGlobal()->pluck('id');
+		return $this->conversations()->ignoreGlobal()->pluck('confer_conversations.id');
 	}
 
 	public function privateConversations()
 	{
-		return $this->conversations()->isPrivate()->pluck('id');
+		return $this->conversations()->isPrivate()->pluck('confer_conversations.id');
 	}
 
 	public function leaveConversation(Conversation $conversation)

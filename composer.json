@@ -27,11 +27,12 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tpojka\\Confer\\Tests\\": "tests/"
+            "Tpojka\\Confer\\Tests\\": "tests/",
+            "App\\": "../../app/"
         }
     },
     "require-dev": {
-        "orchestra/testbench": "^9.0",
+        "orchestra/testbench": "^10.0",
         "phpunit/phpunit": "^11.0"
     }
 }

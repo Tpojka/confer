@@ -31,20 +31,20 @@ class ConferTest extends TestCase
             ]);
 
         // Create some users
-        $user1 = new User(['name' => 'Online User 1']);
+        $user1 = new User(['name' => 'Online User 1', 'email' => 'user1@example.com', 'password' => 'secret']);
         $user1->id = 1;
         $user1->save();
 
-        $user2 = new User(['name' => 'Online User 2']);
+        $user2 = new User(['name' => 'Online User 2', 'email' => 'user2@example.com', 'password' => 'secret']);
         $user2->id = 2;
         $user2->save();
 
-        $user3 = new User(['name' => 'Offline User']);
+        $user3 = new User(['name' => 'Offline User', 'email' => 'user3@example.com', 'password' => 'secret']);
         $user3->id = 3;
         $user3->save();
 
         // Login as another user to be ignored by ignoreMe()
-        $me = new User(['name' => 'Me']);
+        $me = new User(['name' => 'Me', 'email' => 'me@example.com', 'password' => 'secret']);
         $me->id = 4;
         $me->save();
         $this->actingAs($me);
