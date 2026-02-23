@@ -1,3 +1,17 @@
+### [10.1.0] - 2026-02-23
+
+#### Added
+- Comprehensive test suite (Unit and Feature tests).
+- PHPUnit 10 and Orchestra Testbench 8 support.
+- PHP class literals (`::class`) instead of hardcoded strings for models and controllers.
+
+#### Changed
+- Refactored variable names from `snake_case` to `camelCase` for better consistency.
+- Standardized imports at the top of PHP files to avoid fully qualified namespaced paths in the code.
+- Corrected pivot key order in `belongsToMany` relationships (`Conversation` and `CanConfer` trait).
+- Qualified `id` column references in Eloquent queries to resolve ambiguous column errors.
+- Explicitly cast `pluck()` results to arrays when used with native PHP functions (Laravel 10+ compatibility).
+
 ### [10.0.1] - 2026-02-22
 
 #### Fixed
