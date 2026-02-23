@@ -2,6 +2,8 @@
 
 namespace Tpojka\Confer;
 
+use App\User;
+use Tpojka\Confer\Conversation;
 use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model {
@@ -17,7 +19,7 @@ class Message extends Model {
 	 */
 	public function conversation()
 	{
-		return $this->belongsTo('Tpojka\Confer\Conversation', 'conversation_id');
+		return $this->belongsTo(Conversation::class, 'conversation_id');
 	}
 
 	/**
@@ -27,7 +29,7 @@ class Message extends Model {
 	 */
 	public function sender()
 	{
-		return $this->belongsTo('App\User', 'sender_id');
+		return $this->belongsTo(User::class, 'sender_id');
 	}
 
 	public function getEventData($type = 'private')

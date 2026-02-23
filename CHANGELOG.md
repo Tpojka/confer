@@ -1,3 +1,9 @@
+### [12.0.2] - 2026-02-23
+
+#### Changed
+- Replaced string class names with `::class` literals throughout the codebase.
+- Added proper class imports to eliminate namespaced paths in the code.
+
 ### [12.0.1] - 2026-02-23
 
 #### Changed

@@ -2,6 +2,8 @@
 
 namespace Tpojka\Confer;
 
+use App\User;
+use Tpojka\Confer\Message;
 use Illuminate\Database\Eloquent\Model;
 
 class Conversation extends Model {
@@ -19,7 +21,7 @@ class Conversation extends Model {
 	 */
 	public function participants()
 	{
-		return $this->belongsToMany('App\User', 'confer_conversation_participants', 'user_id', 'conversation_id');
+		return $this->belongsToMany(User::class, 'confer_conversation_participants', 'user_id', 'conversation_id');
 	}
 
 	/**
@@ -29,7 +31,7 @@ class Conversation extends Model {
 	 */
 	public function messages()
 	{
-		return $this->hasMany('Tpojka\Confer\Message', 'conversation_id');
+		return $this->hasMany(Message::class, 'conversation_id');
 	}
 
 	public function isGlobal()
@@ -55,7 +57,7 @@ class Conversation extends Model {
 	public function getPotentialInvitees()
 	{
 		$currentParticipants = $this->participants()->pluck('id');
-		return \App\User::whereNotIn('id', $currentParticipants)->get();
+		return User::whereNotIn('id', $currentParticipants)->get();
 
 	}
 
@@ -78,7 +80,7 @@ class Conversation extends Model {
 		$this->participants()->sync(array_merge($this->participants()->pluck('id'), $users));
 	}
 
-	public static function findOrCreateBetween(\App\User $user, \App\User $otherUser)
+	public static function findOrCreateBetween(User $user, User $otherUser)
 	{
 		$userParticipates = $user->privateConversations();
 		$otherUserParticipates = $otherUser->privateConversations();

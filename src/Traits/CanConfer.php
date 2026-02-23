@@ -3,6 +3,8 @@
 namespace Tpojka\Confer\Traits;
 
 use Auth;
+use Tpojka\Confer\Conversation;
+use Tpojka\Confer\Message;
 
 trait CanConfer {
 
@@ -68,7 +70,7 @@ trait CanConfer {
 	 */
 	public function conversations()
 	{
-		return $this->belongsToMany('Tpojka\Confer\Conversation', 'confer_conversation_participants', 'conversation_id', 'user_id');
+		return $this->belongsToMany(Conversation::class, 'confer_conversation_participants', 'conversation_id', 'user_id');
 	}
 
 	/**
@@ -99,7 +101,7 @@ trait CanConfer {
 		return $this->conversations()->isPrivate()->pluck('id');
 	}
 
-	public function leaveConversation(\Tpojka\Confer\Conversation $conversation)
+	public function leaveConversation(Conversation $conversation)
 	{
 		$this->conversations()->detach($conversation->id);
 	}
@@ -111,7 +113,7 @@ trait CanConfer {
 	 */
 	public function sent()
 	{
-		return $this->hasMany('Tpojka\Confer\Message', 'sender_id');
+		return $this->hasMany(Message::class, 'sender_id');
 	}
 
 }
