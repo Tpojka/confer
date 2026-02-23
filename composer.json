@@ -24,5 +24,14 @@
         "files": [
             "src/Helpers/helpers.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tpojka\\Confer\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0",
+        "phpunit/phpunit": "^11.0"
     }
 }
