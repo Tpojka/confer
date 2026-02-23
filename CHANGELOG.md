@@ -1,3 +1,15 @@
+### [12.1.0] - 2026-02-23
+
+#### Added
+- Added comprehensive test suite in `tests/` directory (Unit and Feature tests).
+- Added `orchestra/testbench` and `phpunit/phpunit` to `require-dev` in `composer.json`.
+- Added `phpunit.xml` for submodule testing.
+- Added PHP docblock comments to all test methods.
+
+#### Changed
+- Refactored codebase to use class literals (`::class`) instead of hardcoded string class names.
+- Added proper class imports across all submodule files to eliminate fully qualified namespaced paths.
+
 ### [12.0.2] - 2026-02-23
 
 #### Changed
