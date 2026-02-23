@@ -1,3 +1,8 @@
+### [12.0.1] - 2026-02-23
+
+#### Changed
+- Renamed internal variables and method parameters from `snake_case` to `camelCase` in `Confer.php`, `ConversationController.php`, `Conversation.php`, and `CanConfer.php` for better consistency.
+
 ### [12.0.0] - 2026-02-22
 
 #### Added

@@ -54,8 +54,8 @@ class Conversation extends Model {
 	 */
 	public function getPotentialInvitees()
 	{
-		$current_participants = $this->participants()->pluck('id');
-		return \App\User::whereNotIn('id', $current_participants)->get();
+		$currentParticipants = $this->participants()->pluck('id');
+		return \App\User::whereNotIn('id', $currentParticipants)->get();
 
 	}
 
@@ -66,8 +66,8 @@ class Conversation extends Model {
 			'is_private' => false
 		]);
 
-		$current_participants = $this->participants()->pluck('id');
-		$conversation->participants()->sync(array_merge($current_participants, $users));
+		$currentParticipants = $this->participants()->pluck('id');
+		$conversation->participants()->sync(array_merge($currentParticipants, $users));
 
 		return $conversation;
 	}
@@ -78,25 +78,25 @@ class Conversation extends Model {
 		$this->participants()->sync(array_merge($this->participants()->pluck('id'), $users));
 	}
 
-	public static function findOrCreateBetween(\App\User $user, \App\User $other_user)
+	public static function findOrCreateBetween(\App\User $user, \App\User $otherUser)
 	{
-		$user_participates = $user->privateConversations();
-		$other_user_participates = $other_user->privateConversations();
+		$userParticipates = $user->privateConversations();
+		$otherUserParticipates = $otherUser->privateConversations();
 
 		$static = new static;
 
-		$shared_participations = collect(array_intersect($user_participates, $other_user_participates));
-		return $shared_participations->isEmpty() ? $static->createBetween($user, $other_user) : $static->find($shared_participations->first());
+		$sharedParticipations = collect(array_intersect($userParticipates, $otherUserParticipates));
+		return $sharedParticipations->isEmpty() ? $static->createBetween($user, $otherUser) : $static->find($sharedParticipations->first());
 	}
 
-	public function createBetween($user, $other_user)
+	public function createBetween($user, $otherUser)
 	{
 		$conversation = $this->create([
-			'name' => 'Conversation between ' . $user->name . ' and ' . $other_user->name,
+			'name' => 'Conversation between ' . $user->name . ' and ' . $otherUser->name,
 			'is_private' => true
 		]);
 
-		$conversation->participants()->sync([$user->id, $other_user->id]);
+		$conversation->participants()->sync([$user->id, $otherUser->id]);
 
 		return $conversation;
 		//$user->conversations()->attach($conversation->id);

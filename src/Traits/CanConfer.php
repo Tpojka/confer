@@ -74,12 +74,12 @@ trait CanConfer {
 	/**
 	 * Identify whether a user participates in a conversation based on it's ID
 	 * 
-	 * @param  String $conversation_id
+	 * @param  String $conversationId
 	 * @return boolean
 	 */
-	public function participatesIn($conversation_id)
+	public function participatesIn($conversationId)
 	{
-		return ! $this->conversations()->where('id', $conversation_id)->get()->isEmpty();
+		return ! $this->conversations()->where('id', $conversationId)->get()->isEmpty();
 	}
 
 	/**
