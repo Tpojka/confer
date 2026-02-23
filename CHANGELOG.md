@@ -1,4 +1,4 @@
-### [12.1.1] - 2026-02-23
+### [12.2.0] - 2026-02-23
 
 #### Fixed
 - Fixed `belongsToMany` relationship definitions in `Conversation.php` and `CanConfer.php` by correctly ordering pivot table keys (`conversation_id`, `user_id`).
@@ -9,6 +9,12 @@
 - Updated `composer.json` dev-dependencies to `orchestra/testbench: ^10.0` for Laravel 12 compatibility.
 - Improved `TestCase.php` to include in-memory SQLite schema and application key for more robust testing.
 - Decoupled tests from the main application by adding `App\` namespace to `autoload-dev` in `composer.json`.
+
+### [12.1.1] - 2026-02-23
+
+#### Fixed
+- Fixed the Pusher response format handling for user list loading.
+- Fixed layout of `confer-icon-list`.
 
 ### [12.1.0] - 2026-02-23
 
