@@ -3,6 +3,8 @@
 namespace Tpojka\Confer\Traits;
 
 use Auth;
+use Tpojka\Confer\Conversation;
+use Tpojka\Confer\Message;
 
 trait CanConfer {
 
@@ -68,18 +70,18 @@ trait CanConfer {
 	 */
 	public function conversations()
 	{
-		return $this->belongsToMany('Tpojka\Confer\Conversation', 'confer_conversation_participants', 'conversation_id', 'user_id');
+		return $this->belongsToMany(Conversation::class, 'confer_conversation_participants', 'user_id', 'conversation_id');
 	}
 
 	/**
 	 * Identify whether a user participates in a conversation based on it's ID
 	 * 
-	 * @param  String $conversation_id
+	 * @param  String $conversationId
 	 * @return boolean
 	 */
-	public function participatesIn($conversation_id)
+	public function participatesIn($conversationId)
 	{
-		return ! $this->conversations()->where('id', $conversation_id)->get()->isEmpty();
+		return ! $this->conversations()->where('confer_conversations.id', $conversationId)->get()->isEmpty();
 	}
 
 	/**
@@ -91,15 +93,15 @@ trait CanConfer {
 	 */
 	public function participatingConversations()
 	{
-		return $this->conversations()->ignoreGlobal()->pluck('id');
+		return $this->conversations()->ignoreGlobal()->pluck('confer_conversations.id');
 	}
 
 	public function privateConversations()
 	{
-		return $this->conversations()->isPrivate()->pluck('id');
+		return $this->conversations()->isPrivate()->pluck('confer_conversations.id');
 	}
 
-	public function leaveConversation(\Tpojka\Confer\Conversation $conversation)
+	public function leaveConversation(Conversation $conversation)
 	{
 		$this->conversations()->detach($conversation->id);
 	}
@@ -111,7 +113,7 @@ trait CanConfer {
 	 */
 	public function sent()
 	{
-		return $this->hasMany('Tpojka\Confer\Message', 'sender_id');
+		return $this->hasMany(Message::class, 'sender_id');
 	}
 
 }
