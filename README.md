@@ -1,22 +1,22 @@
-# Confer
-Add a real-time chat system to your Laravel website/application in a few lines of code
+_Prologue_
+Package uses abandoned https://github.com/dazzz1er/confer as base point.
 
-Recently I have had a few projects that have required a chat feature, and I wanted to create a laravel package - so here it is!
+# Confer
+Add a real-time chat system to your Laravel website/application in a few lines of code.
 
 # Demo
 The demo is currently unavailable as the project is being upgraded.
 
 # Requirements
-The project currently requires Pusher (php-server and javascript) to allow real-time chat messaging. I really recommend this service if you need to do anything real-time - it's fast, reliable and very easy to implement in your projects.
+The project currently requires Pusher (php-server and javascript) to allow real-time chat messaging. Service is recommended if you need to do real-time messaging - it's fast, reliable and very easy to implement in your projects.
 
 You can create a free sandbox account at [pusher.com](https://www.pusher.com) which lets you have 1,000,000 messages a day (or 200,000 depending on your plan) and 100 concurrent connections for free. If you need higher limits they offer paid accounts at pretty decent prices.
 
 Other requirements:
 
- * moment.js (it made me sad to have to require this, but it makes updating the chat timestamps so much easier)
+ * moment.js (it makes updating the chat timestamps so much easier)
  * jQuery
  * Font Awesome 6
- * the Laravel HTML/Form helpers (laravelcollective/html) - No longer required
 
 # Installation
 
@@ -26,7 +26,7 @@ Require the package via composer:
 Publish the assets:
 `php artisan vendor:publish`
 
-Add the service provider `Tpojka\Confer\ConferServiceProvider::class` to your `config/app.php`
+Add the service provider `Tpojka\Confer\ConferServiceProvider::class` to your `config/app.php` if needed
 
 Add the seed to your database seed caller (typically `database/seeds/DatabaseSeeder.php` or `database/seeders/DatabaseSeeder.php`):
 
