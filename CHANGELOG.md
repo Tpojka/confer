@@ -1,3 +1,18 @@
+### [6.1.0] - 2026-02-23
+
+#### Added
+- Comprehensive test suite (Unit and Feature tests).
+- PHPUnit 8.5 and Orchestra Testbench 4 support.
+- PHP class literals (`::class`) instead of hardcoded strings for models and controllers.
+
+#### Changed
+- Refactored variable names from `snake_case` to `camelCase` for better consistency.
+- Standardized imports at the top of PHP files to avoid fully qualified namespaced paths in the code.
+- Corrected pivot key order in `belongsToMany` relationships (`Conversation` and `CanConfer` trait).
+- Qualified `id` column references in Eloquent queries to resolve ambiguous column errors.
+- Explicitly cast `pluck()` results to arrays when used with native PHP functions.
+- Ensured PHP 7.1+ compatibility by removing PHP 8.0+ syntax (arrow functions, static return types).
+
 ### Suggestions for Upgrading `tpojka/confer` to Laravel 6
 
 Based on the audit of the `tpojka/confer` submodule, here are the suggested changes to ensure compatibility with Laravel 6.0.

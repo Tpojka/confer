@@ -8,9 +8,9 @@ Conversation between {{ confer_make_list($conversation->participants->pluck('nam
 </small>
 @if ( ! $conversation->isGlobal())
 <div class="confer-conversation-options">
-	<i class="fa fa-user-plus confer-invite-users"></i>
+	<i class="fa-solid fa-user-plus confer-invite-users"></i>
 	@if ($conversation->participants->count() > 2)
-	<i class="fa fa-sign-out confer-leave-conversation"></i>
+	<i class="fa-solid fa-right-from-bracket confer-leave-conversation"></i>
 	@endif
 </div>
 @endif
@@ -40,8 +40,9 @@ Conversation between {{ confer_make_list($conversation->participants->pluck('nam
 	@endforeach
 </ul>
 
-{!! Form::open(['route' => ['confer.conversation.message.store', $conversation->id], 'class' => 'confer-new-message-form']) !!}
-{!! Form::label('body', 'New message') !!}
-{!! Form::textarea('body', null, ['class' => 'confer-new-message-input']) !!}
-{!! Form::submit('Send', ['class' => 'confer-button confer-button-neutral confer-new-message-submit']) !!}
-{!! Form::close() !!}
+<form method="POST" action="{{ route('confer.conversation.message.store', $conversation->id) }}" class="confer-new-message-form">
+	@csrf
+	<label for="body">New message</label>
+	<textarea name="body" class="confer-new-message-input"></textarea>
+	<button type="submit" class="confer-button confer-button-neutral confer-new-message-submit">Send</button>
+</form>

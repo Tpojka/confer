@@ -17,24 +17,25 @@ class Confer {
 	/**
 	 * Get the online/offline state of the users of the confer system
 	 * 
-	 * @return Array
+	 * @return array
 	 */
 	public function getUsersState()
 	{
-		$channel_info = Push::get('/channels/' . $this->global . '/users');
-		$online_users = $channel_info['result']['users'];
+		$channelInfo = Push::get('/channels/' . $this->global . '/users');
+		$onlineUsers = is_object($channelInfo) && isset($channelInfo->users) ? (array) $channelInfo->users : [];
 
-		$online_ids = [];
-		foreach ($online_users as $online_user) {
-			$online_ids[] = $online_user['id'];
+		$onlineIds = [];
+		foreach ($onlineUsers as $onlineUser) {
+			$onlineIds[] = is_object($onlineUser) ? $onlineUser->id : (is_array($onlineUser) ? $onlineUser['id'] : null);
 		}
+		$onlineIds = array_filter($onlineIds);
 
 		$users = User::ignoreMe()->get();
-		$online = $users->filter(function($user) use ($online_ids) {
-			return in_array($user->id, $online_ids);
+		$online = $users->filter(function($user) use ($onlineIds) {
+			return in_array($user->id, $onlineIds);
 		});
-		$offline = $users->filter(function($user) use ($online_ids) {
-			return ! in_array($user->id, $online_ids);
+		$offline = $users->filter(function($user) use ($onlineIds) {
+			return ! in_array($user->id, $onlineIds);
 		});
 
 		return ['online' => $online, 'offline' => $offline];

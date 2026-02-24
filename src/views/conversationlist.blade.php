@@ -15,7 +15,6 @@
 		{!! $conversation->messages->last()->body !!}
 	</span>
 	@endif
-	</span>
 	<span class="confer-bar-timestamp">{{ $conversation->messages->last()->created_at->diffForHumans() }}</span>
 	</li>
 @endforeach

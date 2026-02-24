@@ -2,10 +2,13 @@
 
 namespace Tpojka\Confer;
 
-use Push;
+use Pusher\Pusher;
 use Illuminate\Support\Facades\View;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
+use Tpojka\Confer\Facades\Push;
+use Tpojka\Confer\Http\ViewComposers\ConferComposer;
+use Tpojka\Confer\Http\ViewComposers\ConferBarComposer;
 
 class ConferServiceProvider extends ServiceProvider
 {
@@ -26,11 +29,11 @@ class ConferServiceProvider extends ServiceProvider
     {
         $this->app->singleton('push', function($app) {
             $pusherCreds = $app['config']->get('broadcasting.connections.pusher');
-            return new Push($pusherCreds['key'], $pusherCreds['secret'], $pusherCreds['app_id'], $pusherCreds['options']);
+            return new Pusher($pusherCreds['key'], $pusherCreds['secret'], $pusherCreds['app_id'], $pusherCreds['options']);
         });
-        AliasLoader::getInstance()->alias('Push', 'Tpojka\Confer\Facades\Push');
-        View::composer('confer::confer', 'Tpojka\Confer\Http\ViewComposers\ConferComposer');
-        View::composer('confer::barconversationlist', 'Tpojka\Confer\Http\ViewComposers\ConferBarComposer');
+        AliasLoader::getInstance()->alias('Push', Push::class);
+        View::composer('confer::confer', ConferComposer::class);
+        View::composer('confer::barconversationlist', ConferBarComposer::class);
     }
 
     /**
