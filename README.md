@@ -27,7 +27,7 @@ Require the package via composer:
 Publish the assets:
 `php artisan vendor:publish`
 
-Add the service provider `Tpojka\Confer\ConferServiceProvider::class` to your `config/app.php` if needed
+Add the service provider `Tpojka\Confer\ConferServiceProvider::class` to your `bootstrap/providers.php` if needed (standard for Laravel 11+) or `config/app.php` (for older versions).
 
 Add the seed to your database seed caller (typically `database/seeds/DatabaseSeeder.php` or `database/seeders/DatabaseSeeder.php`):
 

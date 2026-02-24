@@ -1,3 +1,11 @@
+### [12.2.2] - 2026-02-24
+
+#### Added
+- Added Laravel Package Auto-Discovery for the `ConferServiceProvider`.
+
+#### Fixed
+- Fixed a `TypeError` in `confer_make_list` helper where `implode()` expected an array but received a `Collection`. The helper now automatically normalizes `Collection` objects to arrays.
+
 ### [12.2.0] - 2026-02-23
 
 #### Fixed
