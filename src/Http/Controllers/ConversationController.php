@@ -148,15 +148,15 @@ class ConversationController extends Controller {
 
 	public function showMoreMessages(Conversation $conversation, Request $request)
 	{
-		$current_message = $request->input('from_message');
-		$messages = $conversation->messages()->with('sender')->where('id', '<', $current_message)->latest()->take(5)->get()->sortBy('created_at');
+		$currentMessage = $request->input('from_message');
+		$messages = $conversation->messages()->with('sender')->where('id', '<', $currentMessage)->latest()->take(5)->get()->sortBy('created_at');
 		return $messages;
 	}
 
 	public function showInvite(Conversation $conversation)
 	{
-		$potential_invitees = $conversation->getPotentialInvitees();
-		return view('confer::invite', compact('conversation', 'potential_invitees'));
+		$potentialInvitees = $conversation->getPotentialInvitees();
+		return view('confer::invite', ['conversation' => $conversation, 'potential_invitees' => $potentialInvitees]);
 	}
 
 	public function update(Conversation $conversation, InviteParticipantsRequest $request)
