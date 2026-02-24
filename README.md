@@ -1,4 +1,5 @@
 _Prologue_
+
 Package uses abandoned https://github.com/dazzz1er/confer as base point.
 
 # Confer
